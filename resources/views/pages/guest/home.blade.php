@@ -3,30 +3,6 @@
 
     <div class="min-h-screen w-full bg-slate-900 text-slate-100 flex flex-col justify-between">
 
-        <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between border-b border-slate-800">
-            <div class="flex items-center gap-2">
-                <span class="text-xl sm:text-2xl font-black text-blue-400 tracking-wider">CAMSUR</span>
-                <span class="text-xs bg-blue-600/30 text-blue-300 border border-blue-500/30 px-2.5 py-0.5 rounded-full font-semibold">LEVEL UP</span>
-            </div>
-
-            <div class="flex items-center space-x-3 sm:space-x-4">
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ route('dashboard') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold rounded-xl transition">
-                            Dashboard
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-xs sm:text-sm text-slate-300 hover:text-white transition font-medium">Log in</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold rounded-xl transition">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
-                @endif
-            </div>
-        </header>
-
         <main class="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 flex-grow flex flex-col justify-center items-center text-center">
 
             <div class="mb-6 w-full max-w-2xl">
