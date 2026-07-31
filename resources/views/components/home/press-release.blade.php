@@ -1,0 +1,8 @@
+<section class="py-16 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-blue-950 uppercase mb-8">Official Press Releases</h2>
+        <div class="space-y-4">
+            {{-- Press Release Items --}}
+        </div>
+    </div>
+</section>

@@ -7,16 +7,58 @@ Route::get('/', function () {
     return view('pages.guest.home');
 })->name('home');
 
-// Temporary placeholders para sa Phase 2 News & Services
 Route::get('/news', function () {
-    return view('pages.guest.home'); // o i-point sa news view kapag ready na
+    return view('pages.guest.home');
 })->name('guest.news.index');
 
 Route::get('/services', function () {
-    return view('pages.guest.home'); // o i-point sa services view kapag ready na
+    return view('pages.guest.home');
 })->name('guest.services.index');
 
-// Authenticated / Breeze Dashboard Route
+Route::get('/search', function () {
+    return view('pages.guest.search');
+})->name('search');
+
+Route::get('/tourism', function () {
+    return view('pages.guest.tourism');
+})->name('tourism');
+
+Route::get('/bac', function () {
+    return view('pages.guest.transparency.bac');
+})->name('bac');
+
+Route::get('/citizens-charter', function () {
+    return view('pages.guest.transparency.citizens-charter');
+})->name('citizens-charter');
+
+Route::get('/seal', function () {
+    return view('pages.guest.transparency.seal');
+})->name('seal');
+
+Route::get('/profile', function () {
+    return view('pages.guest.about.profile');
+})->name('profile');
+
+Route::get('/socio-economic', function () {
+    return view('pages.guest.about.socio-economic');
+})->name('socio-economic');
+
+Route::get('/capitol-history', function () {
+    return view('pages.guest.about.capitol-history');
+})->name('capitol-history');
+
+Route::get('/province-history', function () {
+    return view('pages.guest.about.province-history');
+})->name('province-history');
+
+Route::get('/mission-vision', function () {
+    return view('pages.guest.about.mission-vision');
+})->name('mission-vision');
+
+Route::get('/past-governors', function () {
+    return view('pages.guest.about.past-governors');
+})->name('past-governors');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('pages.authenticated.dashboard');
