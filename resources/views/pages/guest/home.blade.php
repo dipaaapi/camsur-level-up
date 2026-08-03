@@ -5,11 +5,11 @@
     {{-- Panel 2: Welcome Section --}}
     <x-home.welcome />
 
-    {{-- Panel 3: News Section --}}
-    <x-home.news />
-
-    {{-- Panel 4: Press Release Section --}}
+    {{-- Panel 3: Press Release Section --}}
     <x-home.press-release />
+    
+    {{-- Panel 4: News Section --}}
+    <x-home.news />
 
     {{-- Panel 5: Videos & Reels Section --}}
     <x-home.videos-reels />

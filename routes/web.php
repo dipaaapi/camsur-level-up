@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProvincialProfileController;
 
 // Public / Guest Routes
 Route::get('/', function () {
@@ -35,9 +36,7 @@ Route::get('/seal', function () {
     return view('pages.guest.transparency.seal');
 })->name('seal');
 
-Route::get('/profile', function () {
-    return view('pages.guest.about.profile');
-})->name('profile');
+Route::get('/profile', [ProvincialProfileController::class, 'index'])->name('profile');
 
 Route::get('/socio-economic', function () {
     return view('pages.guest.about.socio-economic');
@@ -58,6 +57,10 @@ Route::get('/mission-vision', function () {
 Route::get('/past-governors', function () {
     return view('pages.guest.about.past-governors');
 })->name('past-governors');
+
+Route::get('/press-releases', function () {
+    return view('pages.guest.press-releases');
+})->name('press-releases.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # 1. WEB SERVER & PHP
+  web:
+    image: php:8.4-apache
+    container_name: camsur-level-up-web
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+
+  # 2. DATABASE (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: camsur-level-up-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: camsur_levelup_db
+    ports:
+      - "33060:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # 3. PHPMYADMIN (Visual Database Manager)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: camsur-level-up-phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+
+volumes:
+  db_data:

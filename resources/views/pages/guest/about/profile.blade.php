@@ -1,30 +1,109 @@
-<x-guest-layout>
-    <section class="bg-blue-950 text-white py-12 px-4 sm:px-6 lg:px-8 border-b-4 border-amber-400">
-        <div class="max-w-7xl mx-auto">
-            <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">About Camsur</span>
-            <h1 class="text-3xl font-black uppercase mt-1">Provincial Profile & Socio-Economic Data</h1>
-            <p class="text-blue-200 text-sm mt-1">Demographics, geography, local economy, and municipal breakdown.</p>
-        </div>
-    </section>
+@extends('layouts.app')
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
-                <span class="text-xs text-gray-500 font-bold uppercase">Capital</span>
-                <p class="text-xl font-black text-blue-950 mt-1">Pili</p>
-            </div>
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
-                <span class="text-xs text-gray-500 font-bold uppercase">Land Area</span>
-                <p class="text-xl font-black text-blue-950 mt-1">5,481.6 km²</p>
-            </div>
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
-                <span class="text-xs text-gray-500 font-bold uppercase">Municipalities</span>
-                <p class="text-xl font-black text-blue-950 mt-1">35 Towns & 2 Cities</p>
-            </div>
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
-                <span class="text-xs text-gray-500 font-bold uppercase">Congressional Districts</span>
-                <p class="text-xl font-black text-blue-950 mt-1">5 Districts</p>
+@section('content')
+@php
+    $profiles = \App\Models\ProvincialProfile::orderBy('sort_order')->get()->keyBy('section_key');
+    $overview = $profiles->get('overview');
+    $vision = $profiles->get('vision');
+    $mission = $profiles->get('mission');
+    $history = $profiles->get('history');
+    $geography = $profiles->get('geography');
+@endphp
+
+<div class="py-5 bg-dark text-white" style="background: linear-gradient(135deg, #06142e 0%, #0a214a 50%, #071736 100%);">
+    <div class="container py-4">
+
+        {{-- Hero Header --}}
+        <div class="text-center mb-5">
+            <span class="badge badge-warning text-uppercase px-3 py-2 font-weight-bold tracking-widest mb-2">
+                Official Provincial Profile
+            </span>
+            <h1 class="display-4 font-weight-bold text-uppercase text-white">
+                Province of Camarines Sur
+            </h1>
+            <p class="lead text-light max-w-2xl mx-auto">
+                {{ $overview->subtitle ?? 'The Heart of Bicolandia' }}
+            </p>
+        </div>
+
+        {{-- Overview Card & Fast Facts --}}
+        @if($overview)
+        <div class="card bg-navy border-secondary shadow-lg mb-5 text-white" style="background-color: rgba(10, 33, 74, 0.8);">
+            <div class="card-body p-4 p-md-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 mb-4 mb-lg-0">
+                        <h3 class="h2 font-weight-bold text-warning mb-3">{{ $overview->title }}</h3>
+                        <p class="lead text-light" style="line-height: 1.8;">
+                            {{ $overview->content }}
+                        </p>
+                    </div>
+                    
+                    @if($overview->quick_facts)
+                    <div class="col-lg-5">
+                        <div class="bg-dark p-4 rounded border border-secondary shadow">
+                            <h5 class="text-warning font-weight-bold text-uppercase mb-3 pb-2 border-bottom border-secondary">
+                                Fast Facts
+                            </h5>
+                            <ul class="list-unstyled mb-0">
+                                @foreach($overview->quick_facts as $key => $value)
+                                <li class="d-flex justify-content-between py-2 border-bottom border-secondary">
+                                    <span class="text-muted font-weight-bold">{{ $key }}:</span>
+                                    <span class="text-white font-weight-bold text-right">{{ $value }}</span>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @endif
+                </div>
             </div>
         </div>
-    </main>
-</x-guest-layout>
+        @endif
+
+        {{-- Vision & Mission --}}
+        <div class="row mb-5">
+            @if($vision)
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="card h-100 bg-navy border-warning shadow text-white" style="background-color: rgba(10, 33, 74, 0.8);">
+                    <div class="card-body p-4">
+                        <span class="badge badge-warning mb-2 font-weight-bold">OUR VISION</span>
+                        <h3 class="card-title font-weight-bold text-white">{{ $vision->title }}</h3>
+                        <p class="card-text text-light" style="line-height: 1.7;">
+                            {{ $vision->content }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if($mission)
+            <div class="col-md-6">
+                <div class="card h-100 bg-navy border-primary shadow text-white" style="background-color: rgba(10, 33, 74, 0.8);">
+                    <div class="card-body p-4">
+                        <span class="badge badge-primary mb-2 font-weight-bold">OUR MISSION</span>
+                        <h3 class="card-title font-weight-bold text-white">{{ $mission->title }}</h3>
+                        <p class="card-text text-light" style="line-height: 1.7;">
+                            {{ $mission->content }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+
+        {{-- History & Geography --}}
+        @if($history)
+        <div class="card bg-navy border-secondary shadow-lg mb-4 text-white" style="background-color: rgba(10, 33, 74, 0.8);">
+            <div class="card-body p-4 p-md-5">
+                <h3 class="h2 font-weight-bold text-warning mb-2">{{ $history->title }}</h3>
+                <h6 class="text-muted text-uppercase mb-4">{{ $history->subtitle }}</h6>
+                <p class="text-light" style="line-height: 1.8;">
+                    {{ $history->content }}
+                </p>
+            </div>
+        </div>
+        @endif
+
+    </div>
+</div>
+@endsection
