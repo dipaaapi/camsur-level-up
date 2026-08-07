@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\ProvincialProfileController;
 
-// Public / Guest Routes
 Route::get('/', function () {
     return view('pages.guest.home');
 })->name('home');
@@ -62,10 +62,32 @@ Route::get('/press-releases', function () {
     return view('pages.guest.press-releases');
 })->name('press-releases.index');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::prefix('careers')->name('careers.')->group(function () {
+    // Government Careers & Inquiry
+    Route::get('/government', [JobPostingController::class, 'careersWithUs'])->name('government');
+    Route::post('/government/send-inquiry', [JobPostingController::class, 'sendFaqInquiry'])->name('government.send-inquiry');
+
+    // Local Jobs Routes
+    Route::get('/local-jobs', [JobPostingController::class, 'localJobs'])->name('local');
+    Route::get('/local-jobs/filter-graph', [JobPostingController::class, 'filterTrendGraph'])->name('local.filter-graph');
+    Route::post('/local-jobs/send-inquiry', [JobPostingController::class, 'sendFaqInquiry'])->name('local-jobs.send-inquiry');
+
+    // Overseas
+    Route::get('/overseas', [JobPostingController::class, 'overseasJobs'])->name('overseas');
+
+    // SPES & Student Internships
+    Route::get('/spes-internships', [JobPostingController::class, 'spesInternships'])->name('spes');
+});
+
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('pages.authenticated.dashboard');
     })->name('dashboard');
 });
+
+// Example route to preview combined auth page
+Route::get('/auth/combined', function () {
+    return view('auth.combined-auth');
+})->name('auth.combined');
 
 require __DIR__.'/auth.php';

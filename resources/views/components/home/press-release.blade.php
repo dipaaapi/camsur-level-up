@@ -133,8 +133,8 @@
             </div>
 
             <div class="flex-shrink-0">
-                <a href="{{ route('press-releases.index') }}" 
-                   class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-300 hover:text-white bg-white/10 hover:bg-amber-400 hover:text-blue-950 px-5 py-2.5 rounded-xl border border-white/20 transition-all shadow-md group">
+                     <a href="{{ route('press-releases.index') }}" 
+                         class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-300 bg-white/10 hover:bg-amber-400 hover:text-blue-950 px-5 py-2.5 rounded-xl border border-white/20 transition-all shadow-md group">
                     <span>Explore All Press Releases</span>
                     <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -310,7 +310,7 @@
 
                     <template x-for="(item, idx) in filteredReleases.slice(0, 4)" :key="item.id">
                         <a :href="item.link" 
-                           class="group bg-blue-950/40 hover:bg-blue-900/80 backdrop-blur-md p-3 rounded-xl border border-white/10 hover:border-amber-400/60 transition-all duration-300 flex items-center gap-3 shadow-md block h-[106px]">
+                            class="group bg-blue-950/40 hover:bg-blue-900/80 backdrop-blur-md p-3 rounded-xl border border-white/10 hover:border-amber-400/60 transition-all duration-300 flex items-center gap-3 shadow-md h-[106px]">
                             
                             {{-- Date Box --}}
                             <div class="w-14 h-18 bg-gradient-to-b from-amber-400 to-amber-500 text-blue-950 rounded-lg flex flex-col items-center justify-center flex-shrink-0 shadow border border-amber-300">

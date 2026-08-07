@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             SdgSeeder::class,
             SocialMediaHubSeeder::class,
             ProvincialProfileSeeder::class,
+            WordOfWisdomSeeder::class,
+            JobPostingSeeder::class,
         ]);
     }
 }

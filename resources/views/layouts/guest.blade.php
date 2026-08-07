@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Camarines Sur Official Portal') }}</title>
+
+    {{-- Dynamic Title: Gumagana sa <x-slot name="title"> at @section('title') --}}
+    <title>{{ $title ?? View::yieldContent('title', config('app.name', 'Camarines Sur Official Portal')) }}</title>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 font-sans antialiased min-h-screen flex flex-col justify-between">
@@ -11,9 +14,10 @@
     {{-- Top Navigation Panel --}}
     <x-guest.panels.nav />
 
-    {{-- Main Content Slot --}}
+    {{-- Main Content Slot & Yield Support --}}
     <main class="flex-grow">
-        {{ $slot }}
+        {{ $slot ?? $content ?? '' }}
+        @yield('content')
     </main>
 
     {{-- 🦶 Modular Footer Panels --}}
