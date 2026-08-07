@@ -1,12 +1,10 @@
 <x-guest-layout>
     {{-- Header Banner --}}
-    <section class="bg-blue-950 text-white py-12 px-4 sm:px-6 lg:px-8 border-b-4 border-amber-400">
-        <div class="max-w-7xl mx-auto">
-            <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">Heritage & History</span>
-            <h1 class="text-3xl font-black uppercase mt-1">Province History</h1>
-            <p class="text-blue-200 text-sm mt-1">The origins, historical milestones, and cultural evolution of Camarines Sur.</p>
-        </div>
-    </section>
+    <x-hero-banner 
+        badge-text="Heritage & History"
+        title="PROVINCE HISTORY"
+        description="The origins, historical milestones, and cultural evolution of Camarines Sur."
+    />
 
     {{-- Main Content --}}
     <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

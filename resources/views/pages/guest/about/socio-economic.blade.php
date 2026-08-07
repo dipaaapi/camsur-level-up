@@ -1,67 +1,18 @@
 <x-guest-layout>
-    <div x-data="{ 
-            selectedLgu: null, 
-            searchQuery: '',
-            filterDistrict: 'all',
-            lgus: [
-                // 1ST DISTRICT
-                { id: 'cabusao', name: 'Cabusao', district: '1st District', class: '5th Class Municipality', area: '46.80 km²', pop: '19,200', mapUrl: 'https://maps.google.com/maps?q=Cabusao+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/cabusao.png', evacCenters: 2 },
-                { id: 'delgallego', name: 'Del Gallego', district: '1st District', class: '4th Class Municipality', area: '208.84 km²', pop: '26,700', mapUrl: 'https://maps.google.com/maps?q=Del+Gallego+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/delgallego.png', evacCenters: 2 },
-                { id: 'libmanan', name: 'Libmanan', district: '1st District', class: '1st Class Municipality (Largest Area)', area: '342.82 km²', pop: '116,100', mapUrl: 'https://maps.google.com/maps?q=Libmanan+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/libmanan.png', evacCenters: 3 },
-                { id: 'lupi', name: 'Lupi', district: '1st District', class: '3rd Class Municipality', area: '199.12 km²', pop: '34,500', mapUrl: 'https://maps.google.com/maps?q=Lupi+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/lupi.png', evacCenters: 2 },
-                { id: 'ragay', name: 'Ragay', district: '1st District', class: '1st Class Municipality', area: '400.22 km²', pop: '61,800', mapUrl: 'https://maps.google.com/maps?q=Ragay+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/ragay.png', evacCenters: 3 },
-                { id: 'sipocot', name: 'Sipocot', district: '1st District', class: '1st Class Municipality', area: '243.43 km²', pop: '70,200', mapUrl: 'https://maps.google.com/maps?q=Sipocot+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/sipocot.png', evacCenters: 2 },
+    {{-- 1. HERO BANNER SECTION --}}
+    <x-hero-banner
+        badge-text="VALIDATED OFFICIAL PROVINCIAL DATA BASELINE"
+        title="LALAWIGAN NG CAMARINES SUR"
+        description="Ang komprehensibong balangkas ng heograpiya, demograpiya, makroekonomiya, imprastraktura, at climate resiliency status ng pinakamalaking lalawigan at sentro ng kaunlaran sa Bicol Region."
+    />
 
-                // 2ND DISTRICT
-                { id: 'gainza', name: 'Gainza', district: '2nd District', class: '5th Class Municipality', area: '14.75 km²', pop: '11,800', mapUrl: 'https://maps.google.com/maps?q=Gainza+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/gainza.png', evacCenters: 2 },
-                { id: 'milaor', name: 'Milaor', district: '2nd District', class: '3rd Class Municipality', area: '33.64 km²', pop: '34,900', mapUrl: 'https://maps.google.com/maps?q=Milaor+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/milaor.png', evacCenters: 2 },
-                { id: 'minalabac', name: 'Minalabac', district: '2nd District', class: '2nd Class Municipality', area: '126.10 km²', pop: '56,200', mapUrl: 'https://maps.google.com/maps?q=Minalabac+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/minalabac.png', evacCenters: 2 },
-                { id: 'pamplona', name: 'Pamplona', district: '2nd District', class: '3rd Class Municipality', area: '80.60 km²', pop: '37,900', mapUrl: 'https://maps.google.com/maps?q=Pamplona+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/pamplona.png', evacCenters: 2 },
-                { id: 'pasacao', name: 'Pasacao', district: '2nd District', class: '3rd Class Municipality', area: '149.54 km²', pop: '51,400', mapUrl: 'https://maps.google.com/maps?q=Pasacao+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/pasacao.png', evacCenters: 3 },
-                { id: 'pili', name: 'Pili (Provincial Capital)', district: '2nd District', class: '1st Class Municipality', area: '290.25 km²', pop: '102,100', mapUrl: 'https://maps.google.com/maps?q=Pili+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/pili.png', evacCenters: 3 },
-                { id: 'sanfernando', name: 'San Fernando', district: '2nd District', class: '2nd Class Municipality', area: '117.63 km²', pop: '38,600', mapUrl: 'https://maps.google.com/maps?q=San+Fernando+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/sanfernando.png', evacCenters: 2 },
-
-                // 3RD DISTRICT
-                { id: 'bombon', name: 'Bombon', district: '3rd District', class: '4th Class Municipality', area: '28.73 km²', pop: '17,800', mapUrl: 'https://maps.google.com/maps?q=Bombon+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/bombon.png', evacCenters: 2 },
-                { id: 'calabanga', name: 'Calabanga', district: '3rd District', class: '1st Class Municipality', area: '163.80 km²', pop: '91,400', mapUrl: 'https://maps.google.com/maps?q=Calabanga+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/calabanga.png', evacCenters: 3 },
-                { id: 'camaligan', name: 'Camaligan', district: '3rd District', class: '5th Class Municipality (Smallest Area)', area: '4.68 km²', pop: '25,100', mapUrl: 'https://maps.google.com/maps?q=Camaligan+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/camaligan.png', evacCenters: 1 },
-                { id: 'canaman', name: 'Canaman', district: '3rd District', class: '3rd Class Municipality', area: '43.27 km²', pop: '37,200', mapUrl: 'https://maps.google.com/maps?q=Canaman+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/canaman.png', evacCenters: 2 },
-                { id: 'magarao', name: 'Magarao', district: '3rd District', class: '4th Class Municipality', area: '44.97 km²', pop: '27,300', mapUrl: 'https://maps.google.com/maps?q=Magarao+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/magarao.png', evacCenters: 2 },
-                { id: 'naga', name: 'Naga City', district: '3rd District', class: 'Independent Component City', area: '84.48 km²', pop: '215,400', mapUrl: 'https://maps.google.com/maps?q=Naga+City+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/naga.png', evacCenters: 4 },
-                { id: 'ocampo', name: 'Ocampo', district: '3rd District', class: '3rd Class Municipality', area: '118.33 km²', pop: '52,800', mapUrl: 'https://maps.google.com/maps?q=Ocampo+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/ocampo.png', evacCenters: 2 },
-
-                // 4TH DISTRICT (PARTIDO)
-                { id: 'caramoan', name: 'Caramoan', district: '4th District', class: '2nd Class Municipality', area: '277.41 km²', pop: '53,200', mapUrl: 'https://maps.google.com/maps?q=Caramoan+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/caramoan.png', evacCenters: 3 },
-                { id: 'garchitorena', name: 'Garchitorena', district: '4th District', class: '4th Class Municipality', area: '243.80 km²', pop: '29,400', mapUrl: 'https://maps.google.com/maps?q=Garchitorena+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/garchitorena.png', evacCenters: 2 },
-                { id: 'goa', name: 'Goa', district: '4th District', class: '1st Class Municipality', area: '206.18 km²', pop: '73,600', mapUrl: 'https://maps.google.com/maps?q=Goa+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/goa.png', evacCenters: 3 },
-                { id: 'lagonoy', name: 'Lagonoy', district: '4th District', class: '2nd Class Municipality', area: '377.90 km²', pop: '58,400', mapUrl: 'https://maps.google.com/maps?q=Lagonoy+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/lagonoy.png', evacCenters: 2 },
-                { id: 'presentacion', name: 'Presentacion', district: '4th District', class: '4th Class Municipality', area: '143.80 km²', pop: '22,600', mapUrl: 'https://maps.google.com/maps?q=Presentacion+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/presentacion.png', evacCenters: 2 },
-                { id: 'sagnay', name: 'Sagnay', district: '4th District', class: '4th Class Municipality', area: '154.19 km²', pop: '36,400', mapUrl: 'https://maps.google.com/maps?q=Sagnay+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/sagnay.png', evacCenters: 2 },
-                { id: 'sanjose', name: 'San Jose', district: '4th District', class: '4th Class Municipality', area: '43.07 km²', pop: '42,100', mapUrl: 'https://maps.google.com/maps?q=San+Jose+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/sanjose.png', evacCenters: 2 },
-                { id: 'tigaon', name: 'Tigaon', district: '4th District', class: '1st Class Municipality', area: '72.35 km²', pop: '60,500', mapUrl: 'https://maps.google.com/maps?q=Tigaon+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/tigaon.png', evacCenters: 2 },
-                { id: 'tinambac', name: 'Tinambac', district: '4th District', class: '1st Class Municipality', area: '351.62 km²', pop: '73,900', mapUrl: 'https://maps.google.com/maps?q=Tinambac+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/tinambac.png', evacCenters: 2 },
-
-                // 5TH DISTRICT
-                { id: 'baao', name: 'Baao', district: '5th District', class: '1st Class Municipality', area: '106.50 km²', pop: '61,300', mapUrl: 'https://maps.google.com/maps?q=Baao+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/baao.png', evacCenters: 2 },
-                { id: 'balatan', name: 'Balatan', district: '5th District', class: '4th Class Municipality', area: '93.09 km²', pop: '31,800', mapUrl: 'https://maps.google.com/maps?q=Balatan+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/balatan.png', evacCenters: 1 },
-                { id: 'bato', name: 'Bato', district: '5th District', class: '3rd Class Municipality', area: '107.12 km²', pop: '53,900', mapUrl: 'https://maps.google.com/maps?q=Bato+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/bato.png', evacCenters: 2 },
-                { id: 'buhi', name: 'Buhi', district: '5th District', class: '1st Class Municipality', area: '246.65 km²', pop: '84,500', mapUrl: 'https://maps.google.com/maps?q=Buhi+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/buhi.png', evacCenters: 2 },
-                { id: 'bula', name: 'Bula', district: '5th District', class: '1st Class Municipality', area: '167.64 km²', pop: '72,100', mapUrl: 'https://maps.google.com/maps?q=Bula+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/bula.png', evacCenters: 2 },
-                { id: 'iriga', name: 'Iriga City', district: '5th District', class: 'Component City', area: '137.35 km²', pop: '118,200', mapUrl: 'https://maps.google.com/maps?q=Iriga+City+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/iriga.png', evacCenters: 3 },
-                { id: 'nabua', name: 'Nabua', district: '5th District', class: '1st Class Municipality', area: '88.54 km²', pop: '86,800', mapUrl: 'https://maps.google.com/maps?q=Nabua+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed', seal: '/images/lgus/nabua.png', evacCenters: 2 }
-            ]
-        }" 
-        class="min-h-screen bg-slate-50 dark:bg-slate-900 py-10 transition-colors duration-300">
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-
-            {{-- 1. HERO BANNER SECTION --}}
-            <x-hero-banner 
-                badge-text="VALIDATED OFFICIAL PROVINCIAL DATA BASELINE"
-                title="LALAWIGAN NG CAMARINES SUR"
-                description="Ang komprehensibong balangkas ng heograpiya, demograpiya, makroekonomiya, imprastraktura, at climate resiliency status ng pinakamalaking lalawigan at sentro ng kaunlaran sa Bicol Region."
-            />
-
+    <main x-data="{
+        selectedLgu: null,
+        searchQuery: '',
+        filterDistrict: 'all',
+        lgus: {{ Js::from($lgus) }}
+    }"
+    class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
             {{-- 2. GEOGRAPHIC DIMENSIONS, LAND AREA & CLIMATE PROFILE --}}
             <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200/80 dark:border-slate-700/80 space-y-6">
                 <h2 class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3">
@@ -442,7 +393,7 @@
             </div>
 
             {{-- 8. COMPLETE 37 LGUS MASTER DIRECTORY (2 CITIES + 35 MUNICIPALITIES WITH MODAL MAPS) --}}
-            <div class="space-y-6">
+            <div class="space-y-6 bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200/80 dark:border-slate-700/80">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <h2 class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3">
@@ -465,7 +416,7 @@
                             <option value="5th District">5th District</option>
                         </select>
 
-                        <input type="text" x-model="searchQuery" placeholder="Maghanap ng LGU..." 
+                        <input type="text" x-model="searchQuery" placeholder="Maghanap ng LGU..."
                             class="w-full sm:w-56 px-4 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">
                     </div>
                 </div>
@@ -473,9 +424,9 @@
                 {{-- LGU Master Grid --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     <template x-for="lgu in lgus.filter(i => (filterDistrict === 'all' || i.district === filterDistrict) && i.name.toLowerCase().includes(searchQuery.toLowerCase()))" :key="lgu.id">
-                        <div @click="selectedLgu = lgu" 
+                        <div @click="selectedLgu = lgu"
                             class="group cursor-pointer bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-xl hover:border-indigo-500 transition duration-300 flex flex-col justify-between space-y-4">
-                            
+
                             <div class="flex items-center gap-3.5">
                                 <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-700/60 p-1.5 flex items-center justify-center border border-slate-200 dark:border-slate-600 group-hover:scale-105 transition-transform">
                                     <img :src="lgu.seal" :alt="lgu.name" class="w-full h-full object-contain" onError="this.src='/images/camsur-logo.png'">
@@ -510,68 +461,64 @@
                 </div>
             </div>
 
-        </div>
+            {{-- ========================================== --}}
+            {{-- INTERACTIVE LGU DETAIL MODAL WITH GOOGLE MAP --}}
+            {{-- ========================================== --}}
+            <div x-show="selectedLgu"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95"
+                class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm"
+                style="display: none;">
 
-        {{-- ========================================== --}}
-        {{-- INTERACTIVE LGU DETAIL MODAL WITH GOOGLE MAP --}}
-        {{-- ========================================== --}}
-        <div x-show="selectedLgu" 
-            x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0 scale-95"
-            x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-200"
-            x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-95"
-            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm"
-            style="display: none;">
-            
-            <div @click.away="selectedLgu = null" class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-6 relative max-h-[90vh] overflow-y-auto">
-                
-                {{-- Close Button --}}
-                <button @click="selectedLgu = null" class="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 bg-slate-100 dark:bg-slate-700 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
+                <div @click.away="selectedLgu = null" class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-6 relative max-h-[90vh] overflow-y-auto">
 
-                {{-- Modal Header --}}
-                <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-700 p-2 border border-slate-200 dark:border-slate-600 flex items-center justify-center">
-                        <img :src="selectedLgu?.seal" :alt="selectedLgu?.name" class="w-full h-full object-contain" onError="this.src='/images/camsur-logo.png'">
+                    {{-- Close Button --}}
+                    <button @click="selectedLgu = null" class="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 bg-slate-100 dark:bg-slate-700 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+
+                    {{-- Modal Header --}}
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-700 p-2 border border-slate-200 dark:border-slate-600 flex items-center justify-center">
+                            <img :src="selectedLgu?.seal" :alt="selectedLgu?.name" class="w-full h-full object-contain" onError="this.src='/images/camsur-logo.png'">
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-black text-slate-900 dark:text-white" x-text="selectedLgu?.name"></h3>
+                            <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400" x-text="selectedLgu?.class + ' • ' + selectedLgu?.district"></p>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-2xl font-black text-slate-900 dark:text-white" x-text="selectedLgu?.name"></h3>
-                        <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400" x-text="selectedLgu?.class + ' • ' + selectedLgu?.district"></p>
+
+                    {{-- Key Statistics Summary --}}
+                    <div class="grid grid-cols-3 gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
+                        <div>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Sukat ng Lupa</span>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 text-sm sm:text-base mt-0.5" x-text="selectedLgu?.area"></p>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Populasyon</span>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 text-sm sm:text-base mt-0.5" x-text="selectedLgu?.pop"></p>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Evac Centers</span>
+                            <p class="font-bold text-red-600 dark:text-red-400 text-sm sm:text-base mt-0.5" x-text="(selectedLgu?.evacCenters || 0) + ' Facilities'"></p>
+                        </div>
+                    </div>
+
+                    {{-- Embedded Interactive Google Map --}}
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+                            <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            Interactive Location Map
+                        </h4>
+                        <div class="w-full h-64 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner bg-slate-100 dark:bg-slate-900">
+                            <iframe :src="selectedLgu?.mapUrl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
-
-                {{-- Key Statistics Summary --}}
-                <div class="grid grid-cols-3 gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Sukat ng Lupa</span>
-                        <p class="font-bold text-slate-800 dark:text-slate-200 text-sm sm:text-base mt-0.5" x-text="selectedLgu?.area"></p>
-                    </div>
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Populasyon</span>
-                        <p class="font-bold text-slate-800 dark:text-slate-200 text-sm sm:text-base mt-0.5" x-text="selectedLgu?.pop"></p>
-                    </div>
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Evac Centers</span>
-                        <p class="font-bold text-red-600 dark:text-red-400 text-sm sm:text-base mt-0.5" x-text="(selectedLgu?.evacCenters || 0) + ' Facilities'"></p>
-                    </div>
-                </div>
-
-                {{-- Embedded Interactive Google Map --}}
-                <div class="space-y-2">
-                    <h4 class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
-                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-                        Interactive Location Map
-                    </h4>
-                    <div class="w-full h-64 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner bg-slate-100 dark:bg-slate-900">
-                        <iframe :src="selectedLgu?.mapUrl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-
             </div>
-        </div>
-
     </div>
 </x-guest-layout>

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ProvincialProfileSeeder::class,
             WordOfWisdomSeeder::class,
             JobPostingSeeder::class,
+            LguSeeder::class,
         ]);
     }
 }

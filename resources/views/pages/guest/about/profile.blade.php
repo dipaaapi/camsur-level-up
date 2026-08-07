@@ -1,16 +1,13 @@
 <x-guest-layout>
+    {{-- 🚀 HERO BANNER --}}
+    <x-hero-banner
+        badge-text="Province of Camarines Sur"
+        title="Provincial Profile"
+        description="Discover the rich history, geography, and demographics of our beloved province."
+    />
+<main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-gray-100 space-y-8 text-gray-700 leading-relaxed text-sm">
 
-    
-<div class="bg-slate-50 min-h-screen py-10 text-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        
-        {{-- 🚀 HERO BANNER --}}
-        <x-hero-banner 
-            badge-text="Province of Camarines Sur"
-            title="Provincial Profile"
-            description="Discover the rich history, geography, and demographics of our beloved province."
-        />
-            
         {{-- 👔 THE GOVERNOR PANEL --}}
         <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200 space-y-8">
             <div class="flex items-center gap-4 border-b border-slate-100 pb-5">
@@ -22,7 +19,7 @@
                     <p class="text-sm text-slate-500 mt-0.5">Leadership and vision for the province of Camarines Sur</p>
                 </div>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center my-2">
                 <div class="md:col-span-1">
                     <img src="{{ asset('/img/icons/profile/Gov.jpg') }}" alt="Governor" class="w-full h-auto rounded-2xl shadow-sm border border-slate-200 object-cover">
@@ -133,7 +130,7 @@
 
             <div class="space-y-4 flex flex-col md:flex-row items-center">
                 <div class="flex-1 flex flex-col gap-4 items-start justify-start px-4 sm:px-20">
-                    <p style="text-align: justify; text-justify: inter-word;" class="text-sm leading-relaxed">Camarines Sur is hilly and mountainous with a flat central area known as the Bikol plain. It is generally flat at the midsection, between mountain ranges, with other small coastal plains on the northeastern coast. These areas are circumscribed by rolling hills. The ravines are deep, while steep slopes are covered only by cogon. Mangroves and nipa swamps form along both coasts of the province. The Caramoan peninsula is rough and mountainous with an elevation as high as 904 meters above sea level. The Ragay coast, meanwhile, is hilly and rolling. 
+                    <p style="text-align: justify; text-justify: inter-word;" class="text-sm leading-relaxed">Camarines Sur is hilly and mountainous with a flat central area known as the Bikol plain. It is generally flat at the midsection, between mountain ranges, with other small coastal plains on the northeastern coast. These areas are circumscribed by rolling hills. The ravines are deep, while steep slopes are covered only by cogon. Mangroves and nipa swamps form along both coasts of the province. The Caramoan peninsula is rough and mountainous with an elevation as high as 904 meters above sea level. The Ragay coast, meanwhile, is hilly and rolling.
                     </p>
                     <p style="text-align: justify; text-justify: inter-word;" class="text-sm leading-relaxed">The province has two inactive volcanoes in its central and southern part, namely Mt. Isarog, with an elevation of 1, 976 meters, and Mt. Iriga, with an elevation of 1, 196 meters. Two mountain ranges also envelope the province. The Tangkong Baka mountain range, which is the lower portion of the Sierra Madre mountain system, and the Calinigan Mountain Range (904 meters), which is located in the Partido area. Other mountains in the province are Mt. Sugutin (366 meters), Mt. Tiis (610 meters), Saddle Peak (1,028 meters), Triple Peak (638 meters), Mt. Putianay (640 meters), Mt. Elizario (508 meters), and Mt. Talitig (385 meters).</p>
                 </div>
@@ -299,7 +296,7 @@
 
         {{-- Demographics & Macroeconomic Performance --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
+
             {{-- Demographics --}}
             <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
                 <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
@@ -405,7 +402,7 @@
 
         {{-- INFRASTRUCTURE, DIGITAL & RESILIENCY --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
+
             {{-- Infrastructure & Digital --}}
             <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
                 <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
@@ -533,7 +530,7 @@
                     <p class="text-sm text-slate-500 mt-0.5">Pamahalaang panlalawigan at mahahalagang bahagi ng kasaysayan</p>
                 </div>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-slate-50/80 rounded-2xl p-6 border border-slate-200/80 space-y-3">
                     <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
