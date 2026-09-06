@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\ProvincialProfileController;
+use App\Http\Controllers\Guest\SocioEconomicController;
+use App\Http\Controllers\Admin\HistoryContentController;
 
 Route::get('/', function () {
     return view('pages.guest.home');
@@ -20,9 +22,30 @@ Route::get('/search', function () {
     return view('pages.guest.search');
 })->name('search');
 
+Route::get('/faq', function () {
+    return view('pages.guest.services.faq');
+})->name('faq');
+
+Route::get('/services/faq', function () {
+    return view('pages.guest.services.faq');
+})->name('services.faq');
+
+Route::get('/services/scholarship', function () {
+    return view('pages.guest.services.scholarship');
+})->name('services.scholarship');
+
+// Backward compatibility alias for educational-assistance
+Route::get('/services/educational-assistance', function () {
+    return view('pages.guest.services.scholarship');
+})->name('services.educational-assistance');
+
 Route::get('/tourism', function () {
-    return view('pages.guest.tourism');
+    return view('pages.guest.services.tourism');
 })->name('tourism');
+
+Route::get('/services/tourism', function () {
+    return view('pages.guest.services.tourism');
+})->name('services.tourism');
 
 Route::get('/bac', function () {
     return view('pages.guest.transparency.bac');
@@ -38,9 +61,7 @@ Route::get('/seal', function () {
 
 Route::get('/profile', [ProvincialProfileController::class, 'index'])->name('profile');
 
-Route::get('/socio-economic', function () {
-    return view('pages.guest.about.socio-economic');
-})->name('socio-economic');
+Route::get('/socio-economic', [SocioEconomicController::class, 'show'])->name('socio-economic');
 
 Route::get('/capitol-history', function () {
     return view('pages.guest.about.capitol-history');
@@ -77,6 +98,23 @@ Route::prefix('careers')->name('careers.')->group(function () {
 
     // SPES & Student Internships
     Route::get('/spes-internships', [JobPostingController::class, 'spesInternships'])->name('spes');
+});
+
+// Citizen Public Inquiry & Feedback Submissions with Rate Limiting (5 requests per minute)
+Route::post('/public-inquiry/submit', [\App\Http\Controllers\PublicInquiryController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('public-inquiry.store');
+
+Route::middleware(['auth','verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('history-content', [HistoryContentController::class, 'index'])->name('history-content.index');
+    Route::post('history-content/{section}', [HistoryContentController::class, 'store'])->name('history-content.store');
+    Route::put('history-content/{section}/{id}', [HistoryContentController::class, 'update'])->name('history-content.update');
+    Route::delete('history-content/{section}/{id}', [HistoryContentController::class, 'destroy'])->name('history-content.destroy');
+
+    // Public Inquiries & Feedback CMS
+    Route::get('public-inquiries', [\App\Http\Controllers\Admin\AdminPublicInquiryController::class, 'index'])->name('public-inquiries.index');
+    Route::put('public-inquiries/{id}', [\App\Http\Controllers\Admin\AdminPublicInquiryController::class, 'update'])->name('public-inquiries.update');
+    Route::delete('public-inquiries/{id}', [\App\Http\Controllers\Admin\AdminPublicInquiryController::class, 'destroy'])->name('public-inquiries.destroy');
 });
 
 Route::middleware(['auth'])->group(function () {

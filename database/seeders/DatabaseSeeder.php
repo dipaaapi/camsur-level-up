@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             WordOfWisdomSeeder::class,
             JobPostingSeeder::class,
             LguSeeder::class,
+            PastGovernorsSeeder::class,
+            HistoricalEraSeeder::class,
         ]);
     }
 }

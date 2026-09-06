@@ -21,7 +21,7 @@ class LguSeeder extends Seeder
                 'area' => '46.80 km²',
                 'pop' => '19,200',
                 'map_url' => 'https://maps.google.com/maps?q=Cabusao+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/cabusao.png',
+                'seal' => '/img/about/socio-economic/muns/cabusao.png',
                 'evac_centers' => 2,
             ],
             [
@@ -32,7 +32,7 @@ class LguSeeder extends Seeder
                 'area' => '208.84 km²',
                 'pop' => '26,700',
                 'map_url' => 'https://maps.google.com/maps?q=Del+Gallego+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/delgallego.png',
+                'seal' => '/img/about/socio-economic/muns/delgallego.png',
                 'evac_centers' => 2,
             ],
             [
@@ -43,7 +43,7 @@ class LguSeeder extends Seeder
                 'area' => '342.82 km²',
                 'pop' => '116,100',
                 'map_url' => 'https://maps.google.com/maps?q=Libmanan+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/libmanan.png',
+                'seal' => '/img/about/socio-economic/muns/libmanan.png',
                 'evac_centers' => 3,
             ],
             [
@@ -54,7 +54,7 @@ class LguSeeder extends Seeder
                 'area' => '199.12 km²',
                 'pop' => '34,500',
                 'map_url' => 'https://maps.google.com/maps?q=Lupi+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/lupi.png',
+                'seal' => '/img/about/socio-economic/muns/lupi.png',
                 'evac_centers' => 2,
             ],
             [
@@ -65,7 +65,7 @@ class LguSeeder extends Seeder
                 'area' => '400.22 km²',
                 'pop' => '61,800',
                 'map_url' => 'https://maps.google.com/maps?q=Ragay+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/ragay.png',
+                'seal' => '/img/about/socio-economic/muns/ragay.png',
                 'evac_centers' => 3,
             ],
             [
@@ -76,7 +76,7 @@ class LguSeeder extends Seeder
                 'area' => '243.43 km²',
                 'pop' => '70,200',
                 'map_url' => 'https://maps.google.com/maps?q=Sipocot+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/sipocot.png',
+                'seal' => '/img/about/socio-economic/muns/sipocot.png',
                 'evac_centers' => 2,
             ],
 
@@ -91,7 +91,7 @@ class LguSeeder extends Seeder
                 'area' => '14.75 km²',
                 'pop' => '11,800',
                 'map_url' => 'https://maps.google.com/maps?q=Gainza+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/gainza.png',
+                'seal' => '/img/about/socio-economic/muns/gainza.png',
                 'evac_centers' => 2,
             ],
             [
@@ -102,7 +102,7 @@ class LguSeeder extends Seeder
                 'area' => '33.64 km²',
                 'pop' => '34,900',
                 'map_url' => 'https://maps.google.com/maps?q=Milaor+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/milaor.png',
+                'seal' => '/img/about/socio-economic/muns/milaor.png',
                 'evac_centers' => 2,
             ],
             [
@@ -113,7 +113,7 @@ class LguSeeder extends Seeder
                 'area' => '126.10 km²',
                 'pop' => '56,200',
                 'map_url' => 'https://maps.google.com/maps?q=Minalabac+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/minalabac.png',
+                'seal' => '/img/about/socio-economic/muns/minalabac.png',
                 'evac_centers' => 2,
             ],
             [
@@ -124,7 +124,7 @@ class LguSeeder extends Seeder
                 'area' => '80.60 km²',
                 'pop' => '37,900',
                 'map_url' => 'https://maps.google.com/maps?q=Pamplona+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/pamplona.png',
+                'seal' => '/img/about/socio-economic/muns/pamplona.png',
                 'evac_centers' => 2,
             ],
             [
@@ -135,7 +135,7 @@ class LguSeeder extends Seeder
                 'area' => '149.54 km²',
                 'pop' => '51,400',
                 'map_url' => 'https://maps.google.com/maps?q=Pasacao+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/pasacao.png',
+                'seal' => '/img/about/socio-economic/muns/pasacao.png',
                 'evac_centers' => 3,
             ],
             [
@@ -146,7 +146,7 @@ class LguSeeder extends Seeder
                 'area' => '290.25 km²',
                 'pop' => '102,100',
                 'map_url' => 'https://maps.google.com/maps?q=Pili+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/pili.png',
+                'seal' => '/img/about/socio-economic/muns/pili.png',
                 'evac_centers' => 3,
             ],
             [
@@ -157,7 +157,7 @@ class LguSeeder extends Seeder
                 'area' => '117.63 km²',
                 'pop' => '38,600',
                 'map_url' => 'https://maps.google.com/maps?q=San+Fernando+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/sanfernando.png',
+                'seal' => '/img/about/socio-economic/muns/sanfernando.png',
                 'evac_centers' => 2,
             ],
 
@@ -172,7 +172,7 @@ class LguSeeder extends Seeder
                 'area' => '28.73 km²',
                 'pop' => '17,800',
                 'map_url' => 'https://maps.google.com/maps?q=Bombon+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/bombon.png',
+                'seal' => '/img/about/socio-economic/muns/bombon.png',
                 'evac_centers' => 2,
             ],
             [
@@ -183,7 +183,7 @@ class LguSeeder extends Seeder
                 'area' => '163.80 km²',
                 'pop' => '91,400',
                 'map_url' => 'https://maps.google.com/maps?q=Calabanga+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/calabanga.png',
+                'seal' => '/img/about/socio-economic/muns/calabanga.png',
                 'evac_centers' => 3,
             ],
             [
@@ -194,7 +194,7 @@ class LguSeeder extends Seeder
                 'area' => '4.68 km²',
                 'pop' => '25,100',
                 'map_url' => 'https://maps.google.com/maps?q=Camaligan+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/camaligan.png',
+                'seal' => '/img/about/socio-economic/muns/camaligan.png',
                 'evac_centers' => 1,
             ],
             [
@@ -205,7 +205,7 @@ class LguSeeder extends Seeder
                 'area' => '43.27 km²',
                 'pop' => '37,200',
                 'map_url' => 'https://maps.google.com/maps?q=Canaman+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/canaman.png',
+                'seal' => '/img/about/socio-economic/muns/canaman.png',
                 'evac_centers' => 2,
             ],
             [
@@ -216,7 +216,7 @@ class LguSeeder extends Seeder
                 'area' => '44.97 km²',
                 'pop' => '27,300',
                 'map_url' => 'https://maps.google.com/maps?q=Magarao+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/magarao.png',
+                'seal' => '/img/about/socio-economic/muns/magarao.png',
                 'evac_centers' => 2,
             ],
             [
@@ -227,7 +227,7 @@ class LguSeeder extends Seeder
                 'area' => '84.48 km²',
                 'pop' => '215,400',
                 'map_url' => 'https://maps.google.com/maps?q=Naga+City+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/naga.png',
+                'seal' => '/img/about/socio-economic/muns/naga.png',
                 'evac_centers' => 4,
             ],
             [
@@ -238,7 +238,7 @@ class LguSeeder extends Seeder
                 'area' => '118.33 km²',
                 'pop' => '52,800',
                 'map_url' => 'https://maps.google.com/maps?q=Ocampo+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/ocampo.png',
+                'seal' => '/img/about/socio-economic/muns/ocampo.png',
                 'evac_centers' => 2,
             ],
 
@@ -253,7 +253,7 @@ class LguSeeder extends Seeder
                 'area' => '277.41 km²',
                 'pop' => '53,200',
                 'map_url' => 'https://maps.google.com/maps?q=Caramoan+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/caramoan.png',
+                'seal' => '/img/about/socio-economic/muns/caramoan.png',
                 'evac_centers' => 3,
             ],
             [
@@ -264,7 +264,7 @@ class LguSeeder extends Seeder
                 'area' => '243.80 km²',
                 'pop' => '29,400',
                 'map_url' => 'https://maps.google.com/maps?q=Garchitorena+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/garchitorena.png',
+                'seal' => '/img/about/socio-economic/muns/garchitorena.png',
                 'evac_centers' => 2,
             ],
             [
@@ -275,7 +275,7 @@ class LguSeeder extends Seeder
                 'area' => '206.18 km²',
                 'pop' => '73,600',
                 'map_url' => 'https://maps.google.com/maps?q=Goa+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/goa.png',
+                'seal' => '/img/about/socio-economic/muns/goa.png',
                 'evac_centers' => 3,
             ],
             [
@@ -286,7 +286,7 @@ class LguSeeder extends Seeder
                 'area' => '377.90 km²',
                 'pop' => '58,400',
                 'map_url' => 'https://maps.google.com/maps?q=Lagonoy+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/lagonoy.png',
+                'seal' => '/img/about/socio-economic/muns/lagonoy.png',
                 'evac_centers' => 2,
             ],
             [
@@ -297,7 +297,7 @@ class LguSeeder extends Seeder
                 'area' => '143.80 km²',
                 'pop' => '22,600',
                 'map_url' => 'https://maps.google.com/maps?q=Presentacion+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/presentacion.png',
+                'seal' => '/img/about/socio-economic/muns/presentacion.png',
                 'evac_centers' => 2,
             ],
             [
@@ -308,7 +308,7 @@ class LguSeeder extends Seeder
                 'area' => '154.19 km²',
                 'pop' => '36,400',
                 'map_url' => 'https://maps.google.com/maps?q=Sagnay+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/sagnay.png',
+                'seal' => '/img/about/socio-economic/muns/sagnay.png',
                 'evac_centers' => 2,
             ],
             [
@@ -319,7 +319,7 @@ class LguSeeder extends Seeder
                 'area' => '43.07 km²',
                 'pop' => '42,100',
                 'map_url' => 'https://maps.google.com/maps?q=San+Jose+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/sanjose.png',
+                'seal' => '/img/about/socio-economic/muns/sanjose.png',
                 'evac_centers' => 2,
             ],
             [
@@ -330,7 +330,7 @@ class LguSeeder extends Seeder
                 'area' => '141.27 km²',
                 'pop' => '19,800',
                 'map_url' => 'https://maps.google.com/maps?q=Lupi+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed6',
-                'seal' => '/img/icons/quickfacts/muns/siruma.png',
+                'seal' => '/img/about/socio-economic/muns/siruma.png',
                 'evac_centers' => 2,
             ],
             [
@@ -341,7 +341,7 @@ class LguSeeder extends Seeder
                 'area' => '72.35 km²',
                 'pop' => '60,500',
                 'map_url' => 'https://maps.google.com/maps?q=Tigaon+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/tigaon.png',
+                'seal' => '/img/about/socio-economic/muns/tigaon.png',
                 'evac_centers' => 2,
             ],
             [
@@ -352,7 +352,7 @@ class LguSeeder extends Seeder
                 'area' => '351.62 km²',
                 'pop' => '73,900',
                 'map_url' => 'https://maps.google.com/maps?q=Tinambac+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/tinambac.png',
+                'seal' => '/img/about/socio-economic/muns/tinambac.png',
                 'evac_centers' => 2,
             ],
 
@@ -367,7 +367,7 @@ class LguSeeder extends Seeder
                 'area' => '106.50 km²',
                 'pop' => '61,300',
                 'map_url' => 'https://maps.google.com/maps?q=Baao+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/baao.png',
+                'seal' => '/img/about/socio-economic/muns/baao.png',
                 'evac_centers' => 2,
             ],
             [
@@ -378,7 +378,7 @@ class LguSeeder extends Seeder
                 'area' => '93.09 km²',
                 'pop' => '31,800',
                 'map_url' => 'https://maps.google.com/maps?q=Balatan+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/balatan.png',
+                'seal' => '/img/about/socio-economic/muns/balatan.png',
                 'evac_centers' => 1,
             ],
             [
@@ -389,7 +389,7 @@ class LguSeeder extends Seeder
                 'area' => '107.12 km²',
                 'pop' => '53,900',
                 'map_url' => 'https://maps.google.com/maps?q=Bato+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/bato.png',
+                'seal' => '/img/about/socio-economic/muns/bato.png',
                 'evac_centers' => 2,
             ],
             [
@@ -400,7 +400,7 @@ class LguSeeder extends Seeder
                 'area' => '246.65 km²',
                 'pop' => '84,500',
                 'map_url' => 'https://maps.google.com/maps?q=Buhi+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/buhi.png',
+                'seal' => '/img/about/socio-economic/muns/buhi.png',
                 'evac_centers' => 2,
             ],
             [
@@ -411,7 +411,7 @@ class LguSeeder extends Seeder
                 'area' => '167.64 km²',
                 'pop' => '72,100',
                 'map_url' => 'https://maps.google.com/maps?q=Bula+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/bula.png',
+                'seal' => '/img/about/socio-economic/muns/bula.png',
                 'evac_centers' => 2,
             ],
             [
@@ -422,7 +422,7 @@ class LguSeeder extends Seeder
                 'area' => '137.35 km²',
                 'pop' => '118,200',
                 'map_url' => 'https://maps.google.com/maps?q=Iriga+City+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/iriga.png',
+                'seal' => '/img/about/socio-economic/muns/iriga.png',
                 'evac_centers' => 3,
             ],
             [
@@ -433,7 +433,7 @@ class LguSeeder extends Seeder
                 'area' => '88.54 km²',
                 'pop' => '86,800',
                 'map_url' => 'https://maps.google.com/maps?q=Nabua+Camarines+Sur&t=&z=13&ie=UTF8&iwloc=&output=embed',
-                'seal' => '/img/icons/quickfacts/muns/nabua.png',
+                'seal' => '/img/about/socio-economic/muns/nabua.png',
                 'evac_centers' => 2,
             ],
         ];

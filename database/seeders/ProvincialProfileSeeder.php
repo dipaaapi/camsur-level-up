@@ -27,7 +27,7 @@ class ProvincialProfileSeeder extends Seeder
                     'Congressional Districts' => '5 Districts',
                     'Region' => 'Region V (Bicol Region)'
                 ],
-                'image_path' => 'img/about/camsur-capitol.jpg',
+                'image_path' => 'img/about/province-history/camsur-capitol.jpg',
                 'sort_order' => 1,
             ],
             [
@@ -54,7 +54,7 @@ class ProvincialProfileSeeder extends Seeder
                 'subtitle' => 'From Ancient Settlements to Modern Distinction',
                 'content' => 'The name "Camarines" originates from "camarin," the Spanish term for rice granaries or storehouses discovered by early Spanish explorers along the Bicol River basin. Originally part of a single province known as Tierra de Camarines, it was subdivided into Camarines Norte and Camarines Sur. Through centuries of resilience, Camarines Sur emerged as a center of faith, culture, and progress in Bicolandia.',
                 'quick_facts' => null,
-                'image_path' => 'img/about/camsur-history.jpg',
+                'image_path' => 'img/about/province-history/camsur-history.jpg',
                 'sort_order' => 4,
             ],
             [
@@ -68,7 +68,7 @@ class ProvincialProfileSeeder extends Seeder
                     'Major Lakes' => 'Lake Buhi & Lake Bato',
                     'Coastline' => 'Extensive coastal bays along Pacific & Ragay Gulf'
                 ],
-                'image_path' => 'img/about/caramoan.jpg',
+                'image_path' => 'img/shared/caramoan.jpg',
                 'sort_order' => 5,
             ],
         ];

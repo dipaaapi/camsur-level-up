@@ -139,7 +139,7 @@
                     </p>
                 </div>
                 <div class="hidden sm:flex items-center gap-4 relative z-10 shrink-0">
-                    <img src="{{ asset('img/camsur_logo.png') }}" alt="CamSur Seal" class="h-28 w-auto filter drop-shadow-xl">
+                    <img src="{{ asset('img/shared/camsur_logo.png') }}" alt="CamSur Seal" class="h-28 w-auto filter drop-shadow-xl">
                     <button @click="open = false" class="text-blue-200 hover:text-white p-2 rounded-full hover:bg-white/10 transition">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
@@ -242,7 +242,7 @@
                     <a href="{{ $card['route'] }}" class="block group">
                         <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 group-hover:shadow-xl transition-all duration-300 relative overflow-hidden">
                             <div class="absolute -right-6 -bottom-6 opacity-5 group-hover:opacity-10 transition">
-                                <img src="{{ asset('img/camsur_logo_hd.png') }}" class="w-32 h-32 object-contain">
+                                <img src="{{ asset('img/shared/camsur_logo_hd.png') }}" class="w-32 h-32 object-contain">
                             </div>
                             
                             <div class="flex items-center justify-between mb-4">

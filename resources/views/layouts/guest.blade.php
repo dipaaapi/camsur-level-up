@@ -11,26 +11,39 @@
 </head>
 <body class="bg-gray-50 font-sans antialiased min-h-screen flex flex-col justify-between">
 
-    {{-- Top Navigation Panel --}}
-    <x-guest.panels.nav />
+    {{-- 🌐 Universal Skeleton Loader: lumalabas sa simula at nagfa-fade out pag kumpleto na ang assets --}}
+    <x-guest.panels.page-skeleton />
 
-    {{-- Main Content Slot & Yield Support --}}
-    <main class="flex-grow">
-        {{ $slot ?? $content ?? '' }}
-        @yield('content')
-    </main>
+    {{-- Page Body Wrapper: Naka-opacity-0 habang naglo-load ang skeleton, magfa-fade in pag tapos na --}}
+    <div id="global-page-wrapper" class="opacity-0 transition-opacity duration-700 ease-out flex-grow flex flex-col justify-between">
 
-    {{-- 🦶 Modular Footer Panels --}}
-    <footer class="mt-auto">
-        {{-- Panel 1: Main Links & Contact Information --}}
-        <x-guest.panels.footer.main />
+        {{-- Top Navigation Panel --}}
+        <x-guest.panels.nav />
 
-        {{-- Panel 2: GOVPH Standard Seals & FOI Panel --}}
-        <x-guest.panels.footer.govph />
+        {{-- Main Content Slot & Yield Support --}}
+        <main class="flex-grow">
+            {{ $slot ?? $content ?? '' }}
+            @yield('content')
+        </main>
 
-        {{-- Panel 3: Copyright & Tech Credits --}}
-        <x-guest.panels.footer.copyright />
-    </footer>
+        {{-- 🦶 Modular Footer Panels --}}
+        <footer class="mt-auto">
+            {{-- Panel 1: Main Links & Contact Information --}}
+            <x-guest.panels.footer.main />
+
+            {{-- Panel 2: GOVPH Standard Seals & FOI Panel --}}
+            <x-guest.panels.footer.govph />
+
+            {{-- Panel 3: Copyright & Tech Credits --}}
+            <x-guest.panels.footer.copyright />
+        </footer>
+
+        {{-- ♿ & 🚀 Unified Floating Toolbar (Accessibility Tools + Auto Scroll to Top) --}}
+        <x-guest.panels.accessibility-toolbar />
+
+        {{-- 🔍 Global Search Modal (Ctrl+K Command Palette) --}}
+        <x-guest.panels.search-modal />
+    </div>
 
 </body>
 </html>

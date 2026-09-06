@@ -5,7 +5,7 @@
             {{-- Col 1: Provincial Logo & Info --}}
             <div class="space-y-3">
                 <div class="flex items-center gap-3">
-                    <img src="{{ asset('img/camsur-logo.png') }}" alt="Camsur Logo" class="h-12 w-auto">
+                    <img src="{{ asset('img/about/socio-economic/muns/camsur-logo.png') }}" alt="Camsur Logo" class="h-12 w-auto">
                     <div>
                         <h3 class="font-extrabold text-sm tracking-wider uppercase text-white">Camarines Sur</h3>
                         <p class="text-[10px] text-blue-200 uppercase tracking-tight">Provincial Government</p>
@@ -23,9 +23,10 @@
                 </h4>
                 <ul class="space-y-2 text-xs text-blue-100">
                     <li><a href="{{ route('home') }}" class="hover:text-amber-300 transition">&rarr; Home</a></li>
-                    <li><a href="#about" class="hover:text-amber-300 transition">&rarr; About Camsur</a></li>
-                    <li><a href="#transparency" class="hover:text-amber-300 transition">&rarr; Transparency Seal</a></li>
+                    <li><a href="{{ route('profile') }}" class="hover:text-amber-300 transition">&rarr; About CamSur</a></li>
+                    <li><a href="{{ route('seal') }}" class="hover:text-amber-300 transition">&rarr; Transparency Seal</a></li>
                     <li><a href="{{ route('tourism') }}" class="hover:text-amber-300 transition">&rarr; Tourism & Eco-Adventure</a></li>
+                    <li><a href="{{ route('faq') }}" class="hover:text-amber-300 transition">&rarr; Help Center & FAQs</a></li>
                     <li><a href="{{ route('search') }}" class="hover:text-amber-300 transition">&rarr; Search Portal</a></li>
                 </ul>
             </div>
@@ -36,10 +37,10 @@
                     Public Services
                 </h4>
                 <ul class="space-y-2 text-xs text-blue-100">
-                    <li><a href="#citizens-charter" class="hover:text-amber-300 transition">&rarr; Citizen's Charter</a></li>
-                    <li><a href="#bac" class="hover:text-amber-300 transition">&rarr; Bids & Awards Committee</a></li>
-                    <li><a href="#careers" class="hover:text-amber-300 transition">&rarr; Job Vacancies / Careers</a></li>
-                    <li><a href="#downloads" class="hover:text-amber-300 transition">&rarr; Downloadable Forms</a></li>
+                    <li><a href="{{ route('services.educational-assistance') }}" class="text-amber-300 font-semibold hover:text-white transition">&rarr; Educational Assistance (Scholarship)</a></li>
+                    <li><a href="{{ route('citizens-charter') }}" class="hover:text-amber-300 transition">&rarr; Citizen's Charter</a></li>
+                    <li><a href="{{ route('bac') }}" class="hover:text-amber-300 transition">&rarr; Bids & Awards Committee</a></li>
+                    <li><a href="{{ route('careers.government') }}" class="hover:text-amber-300 transition">&rarr; Job Vacancies / Careers</a></li>
                 </ul>
             </div>
 

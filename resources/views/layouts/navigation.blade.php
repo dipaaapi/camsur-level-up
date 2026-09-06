@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.public-inquiries.index')" :active="request()->routeIs('admin.public-inquiries.*')">
+                        {{ __('Public Inquiries CMS') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.history-content.index')" :active="request()->routeIs('admin.history-content.*')">
+                        {{ __('Capitol History CMS') }}
+                    </x-nav-link>
                 </div>
             </div>
 

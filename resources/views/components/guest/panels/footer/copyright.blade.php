@@ -3,8 +3,8 @@
         <div>
             &copy; {{ date('Y') }} <span class="text-white font-bold uppercase">Provincial Government of Camarines Sur</span>. All Rights Reserved.
         </div>
-        <div class="flex items-center gap-4 text-slate-500">
-            <span>Powered by <strong class="text-slate-300">Laravel 13 & Tailwind CSS</strong></span>
+        <div class="flex items-center gap-2 text-slate-400">
+            <span>Maintained by: <strong class="text-slate-200">ICARMO</strong> <span class="hidden md:inline text-slate-500">(Information Communication Archives and Records Management Office)</span></span>
         </div>
     </div>
 </div>

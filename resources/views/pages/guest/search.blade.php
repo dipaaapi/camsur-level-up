@@ -98,14 +98,52 @@
                         <span class="text-xs text-gray-400">BAC Document</span>
                     </div>
                     <h3 class="font-bold text-gray-900 text-lg hover:text-blue-900 transition">
-                        <a href="#">Bids and Awards Committee (BAC) Notices</a>
+                        <a href="{{ route('bac') }}">Bids and Awards Committee (BAC) Notices</a>
                     </h3>
                     <p class="text-sm text-gray-600 mt-2 line-clamp-2">
                         Official invitations to bid, bidding documents, and notices of award for provincial infrastructure projects.
                     </p>
                 </div>
-                <a href="#" class="mt-4 text-xs font-bold text-blue-900 hover:text-amber-600 inline-flex items-center gap-1">
+                <a href="{{ route('bac') }}" class="mt-4 text-xs font-bold text-blue-900 hover:text-amber-600 inline-flex items-center gap-1">
                     Browse BAC Documents &rarr;
+                </a>
+            </div>
+
+            {{-- Result Item 4: Educational Assistance --}}
+            <div class="bg-white rounded-xl shadow-sm border border-amber-200 hover:shadow-md transition p-5 flex flex-col justify-between ring-1 ring-amber-400/20">
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-amber-100 text-amber-900 text-[10px] font-bold uppercase px-2 py-0.5 rounded">Scholarship</span>
+                        <span class="text-xs text-amber-600 font-semibold">Active Program</span>
+                    </div>
+                    <h3 class="font-bold text-gray-900 text-lg hover:text-blue-900 transition">
+                        <a href="{{ route('services.educational-assistance') }}">Educational Assistance & Scholarship Program</a>
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-2 line-clamp-2">
+                        Gabay sa mga kwalipikasyon, documentary requirements, at iskedyul ng aplikasyon at payout para sa mga mag-aaral ng CamSur.
+                    </p>
+                </div>
+                <a href="{{ route('services.educational-assistance') }}" class="mt-4 text-xs font-bold text-amber-700 hover:text-amber-900 inline-flex items-center gap-1">
+                    Alamin ang Requirements &rarr;
+                </a>
+            </div>
+
+            {{-- Result Item 5: FAQ & Help Desk --}}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-blue-100 text-blue-900 text-[10px] font-bold uppercase px-2 py-0.5 rounded">Help Desk</span>
+                        <span class="text-xs text-gray-400">Public Portal</span>
+                    </div>
+                    <h3 class="font-bold text-gray-900 text-lg hover:text-blue-900 transition">
+                        <a href="{{ route('faq') }}">Frequently Asked Questions (FAQ)</a>
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-2 line-clamp-2">
+                        Mga kasagutan sa karaniwang katanungan ukol sa scholarship, serbisyo medikal (AICS), buwis, turismo, at hiring.
+                    </p>
+                </div>
+                <a href="{{ route('faq') }}" class="mt-4 text-xs font-bold text-blue-900 hover:text-amber-600 inline-flex items-center gap-1">
+                    Tingnan ang Lahat ng Tanong &rarr;
                 </a>
             </div>
         </div>

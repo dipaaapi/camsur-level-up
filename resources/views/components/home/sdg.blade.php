@@ -53,13 +53,13 @@
 
             {{-- Official Logos --}}
             <div class="flex items-center justify-center sm:justify-start gap-4 flex-shrink-0 bg-slate-800/60 p-3 rounded-2xl border border-slate-700/80">
-                <img src="{{ asset('img/sdg/icon.png') }}" 
+                <img src="{{ asset('img/home/sdg/icon.png') }}" 
                      alt="Official UN SDG Logo" 
                      class="h-10 sm:h-14 w-auto object-contain">
                      
                 <div class="h-8 sm:h-10 w-px bg-slate-700"></div>
 
-                <img src="{{ asset('img/sdg/banner.png') }}" 
+                <img src="{{ asset('img/home/sdg/banner.png') }}" 
                      alt="Official UN SDG Landscape Banner" 
                      class="h-8 sm:h-12 w-auto object-contain">
             </div>
@@ -301,7 +301,7 @@
                         <img :src="'{{ asset('img/sdg/infographics/infographic_') }}' + selectedSdg.number + '.png'" 
                              :alt="selectedSdg.name + ' Infographic'" 
                              class="max-w-full h-auto object-contain rounded-lg shadow-xl mx-auto"
-                             x-on:error="$event.target.src='{{ asset('img/sdg/infographics/infographic_1.png') }}'">
+                             x-on:error="$event.target.src='{{ asset('img/home/sdg/infographics/infographic_1.png') }}'">
                     </div>
                 </div>
 

@@ -8,6 +8,7 @@
             scrolled: false,
             transparencyOpen: false,
             aboutOpen: false,
+            servicesOpen: false,
             timeString: '',
             updateClock() {
                 const now = new Date();
@@ -38,7 +39,7 @@
             {{-- Left Side: GOVPH Brand Image + Text --}}
             <div class="flex items-center gap-2.5 z-10">
                 <a href="https://www.gov.ph" target="_blank" rel="noopener noreferrer" class="font-extrabold text-white hover:text-blue-300 transition flex items-center gap-2">
-                    <img src="{{ asset('img/brand.png') }}" alt="GOVPH Brand" class="h-4 w-auto object-contain" onerror="this.style.display='none'">
+                    <img src="{{ asset('img/about/socio-economic/brand.png') }}" alt="GOVPH Brand" class="h-4 w-auto object-contain" onerror="this.style.display='none'">
                     <span class="tracking-widest uppercase">govph</span>
                 </a>
             </div>
@@ -55,7 +56,7 @@
 
                     {{-- 2. Transparency Dropdown --}}
                     <div class="relative py-1" @click.away="transparencyOpen = false">
-                        <button @click="transparencyOpen = !transparencyOpen; aboutOpen = false"
+                        <button @click="transparencyOpen = !transparencyOpen; aboutOpen = false; servicesOpen = false"
                                 class="flex items-center gap-1 text-xs font-semibold text-slate-200 hover:text-amber-300 transition focus:outline-none">
                             <span>Transparency</span>
                             <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="transparencyOpen ? 'rotate-180 text-amber-300' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +81,7 @@
 
                     {{-- 3. About Dropdown --}}
                     <div class="relative py-1" @click.away="aboutOpen = false">
-                        <button @click="aboutOpen = !aboutOpen; transparencyOpen = false"
+                        <button @click="aboutOpen = !aboutOpen; transparencyOpen = false; servicesOpen = false"
                                 class="flex items-center gap-1 text-xs font-semibold text-slate-200 hover:text-amber-300 transition focus:outline-none">
                             <span>About</span>
                             <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="aboutOpen ? 'rotate-180 text-amber-300' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,26 +107,68 @@
                         </div>
                     </div>
 
-                    {{-- 4. Tourism --}}
-                    <a href="/tourism" class="text-xs font-semibold text-slate-200 hover:text-amber-300 transition py-1">
-                        Tourism
-                    </a>
+                    {{-- 4. Services Dropdown (Tourism, Scholarship, Search Icon, FAQ) --}}
+                    <div class="relative py-1" @click.away="servicesOpen = false">
+                        <button @click="servicesOpen = !servicesOpen; transparencyOpen = false; aboutOpen = false"
+                                class="flex items-center gap-1 text-xs font-semibold text-slate-200 hover:text-amber-300 transition focus:outline-none {{ request()->routeIs('tourism') || request()->routeIs('services.*') || request()->routeIs('search') || request()->routeIs('faq') ? 'text-amber-300' : '' }}">
+                            <span>Services</span>
+                            <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="servicesOpen ? 'rotate-180 text-amber-300' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
 
-                    {{-- 5. Search Button (Redirects directly to /search page) --}}
-                    <a href="{{ Route::has('search') ? route('search') : '/search' }}"
-                       aria-label="Search"
-                       class="p-1 rounded-full text-slate-200 hover:text-amber-300 hover:bg-white/10 transition focus:outline-none flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </a>
+                        <div x-show="servicesOpen"
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 scale-95 -translate-y-1"
+                             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
+                             x-cloak
+                             class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-64 rounded-lg shadow-xl bg-white text-gray-800 ring-1 ring-black ring-opacity-5 py-2 z-50">
+                            
+                            {{-- Scholarship --}}
+                            <a href="{{ route('services.educational-assistance') }}" class="flex items-center justify-between px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">
+                                <span class="flex items-center gap-2">
+                                    <span class="text-base">🎓</span>
+                                    <span>Educational Assistance</span>
+                                </span>
+                                <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded">Scholarship</span>
+                            </a>
+
+                            {{-- Tourism --}}
+                            <a href="{{ route('tourism') }}" class="flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">
+                                <span class="text-base">🏝️</span>
+                                <span>Tourism & Eco-Adventure</span>
+                            </a>
+
+                            {{-- Search Button with Magnifying Glass --}}
+                            <button type="button"
+                                    @click="servicesOpen = false; $dispatch('open-search-modal')"
+                                    class="w-full text-left flex items-center justify-between px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition border-t border-gray-100">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-blue-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    </svg>
+                                    <span>Search Portal</span>
+                                </span>
+                                <span class="text-[10px] font-mono font-bold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">Ctrl+K</span>
+                            </button>
+
+                            {{-- Help Center / FAQ --}}
+                            <a href="{{ route('faq') }}" class="flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition border-t border-gray-100">
+                                <span class="text-base">❓</span>
+                                <span>Help Center & FAQs</span>
+                            </a>
+                        </div>
+                    </div>
 
                 </div>
             @endif
 
             {{-- Right Side: PH Flag GIF + Stacked Philippine Standard Time Clock --}}
             <div class="flex items-center gap-2.5 text-white font-mono text-[11px] z-10">
-                <img src="{{ asset('img/flag.gif') }}" alt="PH Flag" class="w-5 h-3.5 object-cover rounded shadow-sm" onerror="this.style.display='none'">
+                <img src="{{ asset('img/shared/flag.gif') }}" alt="PH Flag" class="w-5 h-3.5 object-cover rounded shadow-sm" onerror="this.style.display='none'">
 
                 <div class="flex flex-col text-left leading-tight">
                     <span class="text-slate-300 uppercase font-semibold text-[9px] tracking-wider">philippine standard time</span>
@@ -150,11 +193,11 @@
                         {{-- 🪙 3D Coin-Flip Container --}}
                         <div :class="scrolled ? 'w-8 h-8' : 'w-11 h-11'" class="relative transition-all duration-300 [perspective:1000px]">
                             <div class="w-full h-full relative transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] animate-coin-flip">
-                                <img src="{{ asset('img/camsur-logo.png') }}"
+                                <img src="{{ asset('img/about/socio-economic/muns/camsur-logo.png') }}"
                                      alt="Camarines Sur Logo"
                                      class="absolute inset-0 w-full h-full object-contain [backface-visibility:hidden]">
 
-                                <img src="{{ asset('img/camsur-logo-outline.png') }}"
+                                <img src="{{ asset('img/shared/camsur-logo-outline.png') }}"
                                      alt="Camarines Sur Outline Logo"
                                      class="absolute inset-0 w-full h-full object-contain [backface-visibility:hidden] [transform:rotateY(180deg)]">
                             </div>
@@ -229,16 +272,32 @@
                     </div>
                 </div>
 
-                {{-- Mobile Tourism Direct Link --}}
-                <a href="#tourism" class="block pl-4 pr-4 py-2 text-base font-medium text-blue-100 hover:bg-white/5">Tourism</a>
-
-                {{-- Mobile Search Direct Link --}}
-                <a href="{{ Route::has('search') ? route('search') : '/search' }}" class="flex items-center gap-2 pl-4 pr-4 py-2 text-base font-medium text-blue-100 hover:bg-white/5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                    <span>Search</span>
-                </a>
+                {{-- Mobile Services Accordion --}}
+                <div x-data="{ subOpen: false }">
+                    <button @click="subOpen = !subOpen" class="w-full flex justify-between items-center pl-4 pr-4 py-2 text-base font-medium text-blue-100 hover:bg-white/5">
+                        <span>Services</span>
+                        <svg class="w-4 h-4 transform transition" :class="subOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div x-show="subOpen" class="pl-8 pr-4 py-1 space-y-1 bg-black/20" x-cloak>
+                        <a href="{{ route('services.educational-assistance') }}" class="block py-1 text-sm text-amber-300 hover:text-white font-semibold">
+                            🎓 Educational Assistance (Scholarship)
+                        </a>
+                        <a href="{{ route('tourism') }}" class="block py-1 text-sm text-blue-200 hover:text-white">
+                            🏝️ Tourism & Eco-Adventure
+                        </a>
+                        <button type="button" @click="open = false; $dispatch('open-search-modal')" class="w-full flex items-center gap-2 py-1 text-sm text-blue-200 hover:text-white text-left">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            <span>Search Portal (Ctrl + K)</span>
+                        </button>
+                        <a href="{{ route('faq') }}" class="block py-1 text-sm text-blue-200 hover:text-white">
+                            ❓ Help Center & FAQs
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

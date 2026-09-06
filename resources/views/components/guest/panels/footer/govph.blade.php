@@ -4,7 +4,7 @@
 
             {{-- GOVPH Brand --}}
             <div class="flex items-center gap-3">
-                <img src="{{ asset('img/brand.png') }}" alt="GOVPH Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'">
+                <img src="{{ asset('img/about/socio-economic/brand.png') }}" alt="GOVPH Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'">
                 <div>
                     <h5 class="font-extrabold text-white uppercase tracking-widest text-xs">Republic of the Philippines</h5>
                     <p class="text-[10px] text-slate-400">All content is in the public domain unless otherwise stated.</p>

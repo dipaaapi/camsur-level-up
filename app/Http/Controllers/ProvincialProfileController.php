@@ -35,7 +35,7 @@ class ProvincialProfileController extends Controller
                         'Land Area' => '5,497.03 km²',
                         'Population' => '2.06M+',
                     ],
-                    'image_path' => 'img/icons/profile/Profile.jpg',
+                    'image_path' => 'img/about/profile/Profile.jpg',
                     'sort_order' => 1,
                 ],
                 [
