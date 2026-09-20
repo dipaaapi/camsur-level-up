@@ -5,7 +5,7 @@
                     title: 'Welcome to Camarines Sur',
                     subtitle: 'Official Web Portal of the Provincial Government of Camarines Sur',
                     badge: 'Province of Camarines Sur',
-                    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80',
+                    image: '{{ asset('img/services/tourism/background/caramoan_gota.jpg') }}',
                     link: '{{ route('profile') }}',
                     buttonText: 'Explore Camsur'
                 },
@@ -13,7 +13,7 @@
                     title: 'Eco-Adventure Capital',
                     subtitle: 'Experience world-class wakeboarding, island hopping, and natural wonders',
                     badge: 'Tourism & Culture',
-                    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1920&q=80',
+                    image: '{{ asset('img/home/stories/cwc.jpg') }}',
                     link: '{{ route('tourism') }}',
                     buttonText: 'Discover Destinations'
                 },
@@ -21,7 +21,7 @@
                     title: 'Transparent Governance',
                     subtitle: 'Access public services, procurement notices, and citizen services online',
                     badge: 'Public Service',
-                    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80',
+                    image: '{{ asset('img/home/stories/capitol.jpg') }}',
                     link: '{{ route('seal') }}',
                     buttonText: 'View Transparency Seal'
                 }
@@ -36,7 +36,7 @@
             startAutoplay() {
                 this.timer = setInterval(() => {
                     this.next();
-                }, 3000);
+                }, 6000);
             },
             stopAutoplay() {
                 clearInterval(this.timer);

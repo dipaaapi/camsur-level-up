@@ -249,6 +249,8 @@ class JobPostingController extends Controller
                 }
             ],
             'email' => 'required|email:rfc,dns|max:100',
+            'category' => 'nullable|string|max:100',
+            'other_category' => 'nullable|string|max:100',
             'title' => 'required|string|min:6|max:120',
             'content' => 'required|string|min:15|max:1000',
         ], [
@@ -263,6 +265,10 @@ class JobPostingController extends Controller
 
         $fullName = trim($request->input('full_name'));
         $email = strtolower(trim($request->input('email')));
+        $category = trim($request->input('category'));
+        if ($category === 'other' && $request->filled('other_category')) {
+            $category = 'Iba pa: ' . trim($request->input('other_category'));
+        }
         $title = trim($request->input('title'));
         $content = trim($request->input('content'));
 
@@ -277,7 +283,7 @@ class JobPostingController extends Controller
         // Process inquiry (e.g. Log or send via mail)
         try {
             // Send email to PESO Camsur (or queue mail)
-            // Mail::raw("Inquiry from $fullName ($email):\n\n$content", function($m) use ($title) {
+            // Mail::raw("Category: $category\nInquiry from $fullName ($email):\n\n$content", function($m) use ($title) {
             //     $m->to('phrmo@camarinessur.gov.ph')->subject("PESO Inquiry: $title");
             // });
 
@@ -371,13 +377,27 @@ class JobPostingController extends Controller
         $jobs = (clone $query)->latest('posted_at')->paginate($perPage)->withQueryString();
         $allActiveSpesJobs = (clone $query)->latest('posted_at')->get();
 
-        $totalActive = $allActiveSpesJobs->count();
-        $employmentTypeStats = $allActiveSpesJobs->groupBy('employment_type')->map(fn($group) => $group->count());
-        $wisdomQuotes = $this->getWisdomQuotes(['spes', 'all']);
-
         return view('pages.guest.careers.spes-internships', compact(
             'jobs', 'allActiveSpesJobs', 'latestFeaturedJobs', 'totalActive',
             'employmentTypeStats', 'wisdomQuotes', 'perPage'
         ));
+    }
+
+    // ==========================================
+    // 5. DEDICATED JOB DETAILS PAGE
+    // ==========================================
+    public function show($id)
+    {
+        $job = JobPosting::findOrFail($id);
+
+        // Fetch related jobs in the same type/category
+        $relatedJobs = JobPosting::active()
+            ->ofType($job->type)
+            ->where('id', '!=', $job->id)
+            ->latest('posted_at')
+            ->take(4)
+            ->get();
+
+        return view('pages.guest.careers.job-details', compact('job', 'relatedJobs'));
     }
 }

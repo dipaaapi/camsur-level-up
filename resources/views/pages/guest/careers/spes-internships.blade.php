@@ -21,7 +21,7 @@
             active="spes"
             badge="DOLE & Provincial Youth Employment Program"
             title="SPES & Student Internships"
-            description="Special Program for Employment of Students (SPES) at Student Internship Programs sa Pamahalaang Panlalawigan ng Camarines Sur." 
+            description="Special Program for Employment of Students (SPES) and Student Internship Programs across the Provincial Government of Camarines Sur." 
         />
 
         {{-- Quick Stats / Overview --}}
@@ -115,9 +115,9 @@
                                         {{ $job->deadline ? \Carbon\Carbon::parse($job->deadline)->format('M d, Y') : 'Open until slots are filled' }}
                                     </td>
                                     <td class="p-4 text-right">
-                                        <button @click="openJobModal({{ json_encode($job) }})" class="bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold px-3 py-1.5 rounded-lg text-xs transition">
+                                        <a href="{{ route('careers.show', $job->id) }}" class="bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold px-3 py-1.5 rounded-lg text-xs transition">
                                             View Details
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -161,9 +161,9 @@
                                 @endif
                             </div>
 
-                            <button @click="openJobModal({{ json_encode($job) }})" class="w-full text-center text-xs font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 py-2.5 rounded-xl transition-colors">
-                                View Requirements & Details
-                            </button>
+                            <a href="{{ route('careers.show', $job->id) }}" class="block w-full text-center text-xs font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 hover:text-purple-900 py-2.5 rounded-xl transition-colors">
+                                View Requirements & Details &rarr;
+                            </a>
                         </div>
                     </div>
                 @empty
@@ -181,53 +181,53 @@
             {{-- Program Qualifications Grid --}}
             <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-6">
                 <div>
-                    <h3 class="text-lg font-bold text-slate-900">Ano ang SPES (Special Program for Employment of Students)?</h3>
+                    <h3 class="text-lg font-bold text-slate-900">What is SPES (Special Program for Employment of Students)?</h3>
                     <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                        Isang programa ng DOLE at ng Pamahalaang Panlalawigan ng Camarines Sur sa ilalim ng Republic Act No. 10917 upang matulungan ang mga mahihirap ngunit karapat-dapat na estudyante na maipagpatuloy ang kanilang pag-aaral sa pamamagitan ng pansamantalang trabaho tuwing bakasyon o Summer/Trimestral break.
+                        A flagship initiative jointly administered by the Department of Labor and Employment (DOLE) and the Provincial Government of Camarines Sur under Republic Act No. 10917. The program provides temporary paid employment opportunities to disadvantaged yet deserving students to help finance their ongoing education during summer or semester breaks.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
                     <div class="bg-purple-50/60 p-5 rounded-2xl border border-purple-100 space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-wider text-purple-800">1. Edad at Estado</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-purple-800">1. Age & Student Status</span>
                         <p class="text-xs text-slate-700 leading-relaxed">
-                            Mula <strong>15 hanggang 30 taong gulang</strong>. Bukas para sa mga High School, Senior High School, College Students, o Out-of-School Youth (OSY) na nagnanais bumalik sa pag-aaral.
+                            Ages <strong>15 to 30 years old</strong>. Open to enrolled Junior High, Senior High School, College Students, or Out-of-School Youth (OSY) intending to resume education.
                         </p>
                     </div>
 
                     <div class="bg-indigo-50/60 p-5 rounded-2xl border border-indigo-100 space-y-2">
                         <span class="text-xs font-bold uppercase tracking-wider text-indigo-800">2. Income Threshold</span>
                         <p class="text-xs text-slate-700 leading-relaxed">
-                            Ang pinagsamang taunang kita ng mga magulang ay hindi lalagpas sa opisyal na **poverty threshold** ng rehiyon ayon sa talaan ng NEDA.
+                            Combined annual net income of parents must not exceed the official regional poverty threshold established by NEDA.
                         </p>
                     </div>
 
                     <div class="bg-emerald-50/60 p-5 rounded-2xl border border-emerald-100 space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">3. Passing Grades</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">3. Academic Performance</span>
                         <p class="text-xs text-slate-700 leading-relaxed">
-                            Mayroong **passing grade** sa huling semester o school year na pinasukan (walang bagsak na marka sa Form 137 / Report Card o TOR).
+                            Must obtain a <strong>passing general average</strong> during the preceding academic semester or school year (no failing grades on Form 137 / Report Card / TOR).
                         </p>
                     </div>
                 </div>
 
                 <div class="border-t border-slate-100 pt-6 space-y-3">
-                    <h4 class="text-sm font-bold text-slate-900">Listahan ng mga Kinakailangang Dokumento (Documentary Requirements):</h4>
+                    <h4 class="text-sm font-bold text-slate-900">Documentary Requirements Checklist:</h4>
                     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
                         <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
                             <span class="text-purple-600 font-bold">✓</span>
-                            <span><strong>SPES Application Form</strong> (Nakalagda at may ID picture).</span>
+                            <span><strong>SPES Application Form</strong> (Duly signed with recent passport photo).</span>
                         </li>
                         <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
                             <span class="text-purple-600 font-bold">✓</span>
-                            <span><strong>PSA Birth Certificate</strong> o Barangay Certificate of Live Birth.</span>
+                            <span><strong>PSA Birth Certificate</strong> or Local Civil Registrar Birth Certificate.</span>
                         </li>
                         <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
                             <span class="text-purple-600 font-bold">✓</span>
-                            <span><strong>Copy of Form 138 / Report Card / TOR</strong> na may passing grade.</span>
+                            <span><strong>Copy of Form 138 / Report Card / Official TOR</strong> with passing grades.</span>
                         </li>
                         <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
                             <span class="text-purple-600 font-bold">✓</span>
-                            <span><strong>Parents' Income Tax Return (ITR)</strong> o Certificate of Indigency mula sa Barangay.</span>
+                            <span><strong>Parents' Income Tax Return (ITR)</strong> or Barangay Certificate of Indigency.</span>
                         </li>
                     </ul>
                 </div>

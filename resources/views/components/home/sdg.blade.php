@@ -8,11 +8,13 @@
             sdgsList: {{ json_encode($sdgs) }},
             showModal: false,
             zoomScale: 1,
+            activeModalTab: 'achievement',
             selectSdg(sdg) {
                 this.selectedSdg = sdg;
             },
-            openModal() {
+            openModal(defaultTab = 'achievement') {
                 this.zoomScale = 1;
+                this.activeModalTab = defaultTab;
                 this.showModal = true;
             },
             zoomIn() {
@@ -31,10 +33,9 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        {{-- 📌 Section Header + Official UN Branding --}}
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 sm:mb-10 pb-6 border-b border-slate-800">
-            
-            <div class="max-w-3xl">
+        {{-- 📌 Section Header + Official UN SDG Master Logo --}}
+        <div class="mb-8 sm:mb-10 pb-6 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="max-w-4xl">
                 <div class="flex items-center gap-2 mb-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
                     <span class="text-xs font-black uppercase tracking-widest text-amber-300">
@@ -47,23 +48,16 @@
                 </h2>
 
                 <p class="mt-3 text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    Bilang kabahagi ang Pilipinas sa United Nations, ang **Pamahalaang Panlalawigan ng Camarines Sur** ay nakatuon sa pagpapatupad ng **17 Sustainable Development Goals**. Ang ating mga pampublikong proyekto, ordinansa, at pondo ay idinisenyo upang mag-ambag sa pagtatapos ng kahirapan, pangangalaga sa kalikasan, at paghahatid ng inklusibong kaunlaran.
+                    As part of the Philippines' commitment to the United Nations, the <strong class="text-white font-bold">Provincial Government of Camarines Sur</strong> actively implements the <strong class="text-white font-bold">17 Sustainable Development Goals</strong>. Our public projects, ordinances, and investments are geared towards ending poverty, protecting the environment, and fostering inclusive, sustainable progress.
                 </p>
             </div>
 
-            {{-- Official Logos --}}
-            <div class="flex items-center justify-center sm:justify-start gap-4 flex-shrink-0 bg-slate-800/60 p-3 rounded-2xl border border-slate-700/80">
-                <img src="{{ asset('img/home/sdg/icon.png') }}" 
-                     alt="Official UN SDG Logo" 
-                     class="h-10 sm:h-14 w-auto object-contain">
-                     
-                <div class="h-8 sm:h-10 w-px bg-slate-700"></div>
-
+            {{-- Official UN SDG Main Logo (Mandatory under UN SDG Guidelines) --}}
+            <div class="flex items-center gap-4 flex-shrink-0 bg-slate-800/80 p-3 rounded-2xl border border-slate-700 shadow-lg self-start md:self-center">
                 <img src="{{ asset('img/home/sdg/banner.png') }}" 
-                     alt="Official UN SDG Landscape Banner" 
-                     class="h-8 sm:h-12 w-auto object-contain">
+                     alt="Official UN Sustainable Development Goals Logo" 
+                     class="h-10 sm:h-12 w-auto object-contain">
             </div>
-
         </div>
 
         {{-- 🏛️ Main Interactive Grid --}}
@@ -77,24 +71,20 @@
                      :style="'background-color: ' + selectedSdg.color_hex"></div>
 
                 <div class="space-y-4">
-                    {{-- Active Goal Header --}}
-                    <div class="flex items-center justify-between gap-3 pt-2">
-                        <span class="text-xs font-black uppercase tracking-widest text-slate-400">
-                            Active UN Target
-                        </span>
-                        
-                        {{-- Official Landscape Style Icon --}}
-                        <div class="h-10 sm:h-12 w-auto overflow-hidden rounded-lg shadow-md border border-white/10 flex-shrink-0">
-                            <img :src="'{{ asset('img/sdg/icons/colored/landscape') }}/' + selectedSdg.number + '.png'" 
+                    {{-- Active Goal Header (Square Icon + Goal Badge & Name) --}}
+                    <div class="pt-2 flex items-center gap-3.5">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shadow-lg border border-white/10 flex-shrink-0 bg-slate-900">
+                            <img :src="'{{ asset('img/sdg/icons/colored') }}/' + selectedSdg.number + '.png'" 
                                  :alt="selectedSdg.name"
-                                 class="h-full w-auto object-contain">
+                                 class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-black uppercase text-amber-400 tracking-wider block"
+                                  x-text="selectedSdg.code"></span>
+                            <h3 class="text-base sm:text-xl font-black uppercase tracking-tight text-white leading-snug"
+                                x-text="selectedSdg.name"></h3>
                         </div>
                     </div>
-
-                    {{-- Goal Title --}}
-                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white leading-snug"
-                        x-text="selectedSdg.name">
-                    </h3>
 
                     {{-- 🌐 UN Global Objective (`un_meaning`) --}}
                     <div class="p-3.5 sm:p-4 bg-slate-900/90 rounded-xl border border-slate-700/80 space-y-1">
@@ -134,15 +124,15 @@
                     </template>
                 </div>
 
-                {{-- Action Bar: Open Zoomable Modal --}}
+                {{-- Action Bar: Open Zoomable Modal (Default as Achievement Image) --}}
                 <div class="pt-5 mt-5 border-t border-slate-700/80 space-y-3">
-                    <button @click="openModal()" 
+                    <button @click="openModal('achievement')" 
                             type="button"
                             class="w-full py-3 px-4 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2 active:scale-98">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        <span>View High-Res Infographic & Details</span>
+                        <span>View SDG Achievement & Infographics</span>
                     </button>
 
                     <div class="flex items-center justify-between text-xs">
@@ -187,7 +177,7 @@
                 </div>
 
                 <p class="text-[11px] text-slate-400 italic">
-                    💡 Pindutin ang alinman sa 17 opisyal na Sustainable Development Goals upang alamin ang mga programa ng lalawigan na tumutugon dito.
+                    💡 Click any of the 17 official Sustainable Development Goals to learn about the province's aligned programs and achievements.
                 </p>
 
             </div>
@@ -196,7 +186,7 @@
 
     </div>
 
-    {{-- 🖼️ FULLY RESPONSIVE HIGH-RES INFOGRAPHIC MODAL (SENIOR ACCESSIBLE) --}}
+    {{-- 🖼️ FULLY RESPONSIVE SDG MODAL (Default Tab: Achievement Image, Second Tab: Infographics) --}}
     <div x-show="showModal" 
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0"
@@ -208,17 +198,17 @@
          style="display: none;"
          @keydown.escape.window="showModal = false">
 
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl sm:rounded-3xl shadow-2xl max-w-5xl w-full overflow-hidden relative text-white flex flex-col max-h-[95vh] my-auto">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl sm:rounded-3xl shadow-2xl max-w-5xl w-full relative text-white flex flex-col max-h-[92vh] my-auto">
 
             {{-- Modal Header --}}
-            <div class="p-3.5 sm:p-5 border-b border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-900"
+            <div class="p-3.5 sm:p-5 border-b border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-900 shrink-0"
                  :style="'border-top: 6px solid ' + selectedSdg.color_hex">
                 
                 <div class="flex items-center gap-3">
-                    <div class="h-10 sm:h-12 w-auto overflow-hidden rounded-lg flex-shrink-0">
-                        <img :src="'{{ asset('img/sdg/icons/colored/landscape') }}/' + selectedSdg.number + '.png'" 
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 overflow-hidden rounded-xl shadow-md border border-white/10 flex-shrink-0 bg-slate-800">
+                        <img :src="'{{ asset('img/sdg/icons/colored') }}/' + selectedSdg.number + '.png'" 
                              :alt="selectedSdg.name"
-                             class="h-full w-auto object-contain">
+                             class="w-full h-full object-cover">
                     </div>
                     <div>
                         <span class="text-[10px] sm:text-xs font-black uppercase text-amber-400 tracking-wider block" x-text="selectedSdg.code"></span>
@@ -253,33 +243,56 @@
                         </button>
                     </div>
 
-                    <a :href="'{{ asset('img/sdg/infographics/infographic_') }}' + selectedSdg.number + '.png'" 
+                    <a :href="activeModalTab === 'achievement' ? ('{{ asset('img/sdg/achievements') }}/' + selectedSdg.number + '.jpg') : ('{{ asset('img/sdg/infographics/infographic_') }}' + selectedSdg.number + '.png')" 
                        target="_blank" 
                        title="Open High-Res File"
                        class="px-2.5 py-1 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold rounded-lg text-xs transition">
                         Full File ↗
                     </a>
-
-                    <button @click="showModal = false" 
-                            type="button"
-                            class="p-1.5 bg-slate-700 hover:bg-amber-400 hover:text-slate-950 text-white rounded-lg transition">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
                 </div>
 
             </div>
 
-            {{-- Modal Content (Seeder Data + Zoomable Image Showcase) --}}
-            <div class="flex-grow overflow-y-auto p-4 sm:p-6 space-y-5 bg-slate-950">
+            {{-- 📑 Modal Tabs Switcher (Achievement Image vs. Infographics) --}}
+            <div class="px-4 sm:px-6 pt-3 pb-0 bg-slate-900 border-b border-slate-800 flex items-center justify-between flex-wrap gap-2 shrink-0">
+                <div class="flex items-center gap-2">
+                    {{-- Tab 1: Achievement Image (DEFAULT) --}}
+                    <button type="button"
+                            @click="activeModalTab = 'achievement'; resetZoom();"
+                            :class="activeModalTab === 'achievement' ? 'bg-amber-400 text-slate-950 shadow-md font-black border-amber-400' : 'text-slate-400 hover:text-white border-transparent hover:bg-white/5 font-semibold'"
+                            class="px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition-all border flex items-center gap-2">
+                        <span>🏆</span>
+                        <span>Achievement Image</span>
+                        <span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold"
+                              :class="activeModalTab === 'achievement' ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-800 text-amber-300'">
+                            camsur.com banner
+                        </span>
+                    </button>
+
+                    {{-- Tab 2: Infographics --}}
+                    <button type="button"
+                            @click="activeModalTab = 'infographic'; resetZoom();"
+                            :class="activeModalTab === 'infographic' ? 'bg-blue-600 text-white shadow-md font-black border-blue-500' : 'text-slate-400 hover:text-white border-transparent hover:bg-white/5 font-semibold'"
+                            class="px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition-all border flex items-center gap-2">
+                        <span>📊</span>
+                        <span>Infographics</span>
+                    </button>
+                </div>
+
+                <div class="text-[11px] text-slate-400 hidden sm:block">
+                    Displaying: <span class="font-bold text-amber-300" x-text="activeModalTab === 'achievement' ? 'Provincial Achievement Banner' : 'UN SDG Infographic Sheet'"></span>
+                </div>
+            </div>
+
+            {{-- Modal Content (Single unified scroll container) --}}
+            <div class="overflow-y-auto overflow-x-hidden p-4 sm:p-6 space-y-5 bg-slate-950 flex-1">
 
                 {{-- Full Seeder Info Section --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                     {{-- UN Meaning --}}
                     <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-800">
                         <span class="text-[10px] font-black uppercase text-amber-400 tracking-wider block mb-1">
-                            🌐 UN Global Objective (`un_meaning`):
+                            🌐 UN Global Objective:
                         </span>
                         <p class="text-xs sm:text-sm text-slate-200 leading-relaxed italic" x-text="selectedSdg.un_meaning"></p>
                     </div>
@@ -287,14 +300,26 @@
                     {{-- CamSur Local Commitment --}}
                     <div class="p-3.5 bg-blue-950/80 rounded-xl border border-blue-900/60">
                         <span class="text-[10px] font-black uppercase text-blue-300 tracking-wider block mb-1">
-                            🏛️ Provincial Commitment (`camsur_commitment`):
+                            🏛️ Provincial Commitment (CamSur):
                         </span>
                         <p class="text-xs sm:text-sm text-blue-100 leading-relaxed font-semibold" x-text="selectedSdg.camsur_commitment"></p>
                     </div>
                 </div>
 
-                {{-- Zoomable Responsive Image Container --}}
-                <div class="border border-slate-800 rounded-xl bg-slate-900/50 p-2 sm:p-4 text-center overflow-auto min-h-[280px] flex items-center justify-center">
+                {{-- TAB 1: Zoomable Responsive Achievement Image Container (DEFAULT) --}}
+                <div x-show="activeModalTab === 'achievement'" class="border border-slate-800 rounded-xl bg-slate-900/50 p-2 sm:p-4 text-center overflow-x-auto min-h-[300px] flex items-center justify-center">
+                    <div class="transition-transform duration-300 ease-out max-w-full inline-block"
+                         :style="'transform: scale(' + zoomScale + '); transform-origin: center top;'">
+                        
+                        <img :src="'{{ asset('img/sdg/achievements') }}/' + selectedSdg.number + '.jpg'" 
+                             :alt="selectedSdg.name + ' Provincial Achievement Banner'" 
+                             class="max-w-full h-auto object-contain rounded-lg shadow-2xl mx-auto"
+                             x-on:error="$event.target.src='https://camsur.com/img/sdg2/latest-banner/' + selectedSdg.number + '.jpg'">
+                    </div>
+                </div>
+
+                {{-- TAB 2: Zoomable Responsive Infographic Container --}}
+                <div x-show="activeModalTab === 'infographic'" x-cloak class="border border-slate-800 rounded-xl bg-slate-900/50 p-2 sm:p-4 text-center overflow-x-auto min-h-[300px] flex items-center justify-center">
                     <div class="transition-transform duration-300 ease-out max-w-full inline-block"
                          :style="'transform: scale(' + zoomScale + '); transform-origin: center top;'">
                         
@@ -308,9 +333,9 @@
             </div>
 
             {{-- Modal Footer --}}
-            <div class="p-3.5 sm:p-4 border-t border-slate-800 bg-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <div class="p-3.5 sm:p-4 border-t border-slate-800 bg-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shrink-0">
                 <span class="text-slate-400 text-[11px] text-center sm:text-left">
-                    💡 <strong class="text-amber-300">Accessibility Note:</strong> Gamitin ang Zoom buttons sa itaas kung kailangang palakihin ang teksto ng infographic.
+                    💡 <strong class="text-amber-300">Tip:</strong> Mag-switch sa pagitan ng <strong class="text-white">Achievement Image</strong> at <strong class="text-white">Infographics</strong> gamit ang tabs sa itaas.
                 </span>
 
                 <button @click="showModal = false" 

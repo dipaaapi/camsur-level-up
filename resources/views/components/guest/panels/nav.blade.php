@@ -9,21 +9,26 @@
             transparencyOpen: false,
             aboutOpen: false,
             servicesOpen: false,
-            timeString: '',
+            timeOnly: '',
+            dateOnly: '',
             updateClock() {
                 const now = new Date();
-                const options = {
+                // Philippine Standard Time (PST - Asia/Manila)
+                const timeOptions = {
                     timeZone: 'Asia/Manila',
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
+                    hour: 'numeric',
                     minute: '2-digit',
                     second: '2-digit',
                     hour12: true
                 };
-                this.timeString = now.toLocaleString('en-US', options);
+                const dateOptions = {
+                    timeZone: 'Asia/Manila',
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                };
+                this.timeOnly = now.toLocaleTimeString('en-US', timeOptions);
+                this.dateOnly = now.toLocaleDateString('en-US', dateOptions);
             }
         }"
         x-init="updateClock(); setInterval(() => updateClock(), 1000);"
@@ -33,7 +38,7 @@
     {{-- 🇵🇭 1st Layer: Official GOVPH Topbar + Centered Navigation Links + Dynamic Clock --}}
     <div style="background-color: #141414f2;"
          :class="scrolled ? 'py-1 text-[11px]' : 'py-1.5 text-xs'"
-         class="text-slate-200 border-b border-white/10 backdrop-blur-sm transition-all duration-300">
+         class="relative z-50 text-slate-200 border-b border-white/10 backdrop-blur-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center relative">
 
             {{-- Left Side: GOVPH Brand Image + Text --}}
@@ -46,7 +51,7 @@
 
             {{-- 🧭 CENTERED NAVIGATION LINKS (Inilagay sa GOVPH Topbar) --}}
             @if($variant === 'guest')
-                <div class="hidden md:flex md:items-center md:space-x-6 absolute left-1/2 transform -translate-x-1/2 z-10">
+                <div class="hidden md:flex md:items-center md:space-x-6 absolute left-1/2 transform -translate-x-1/2 z-50">
 
                     {{-- 1. Home --}}
                     <a href="{{ Route::has('home') ? route('home') : '/' }}"
@@ -72,7 +77,7 @@
                              x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                              x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
                              x-cloak
-                             class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-60 rounded-lg shadow-xl bg-white text-gray-800 ring-1 ring-black ring-opacity-5 py-2 z-50">
+                             class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-60 rounded-lg shadow-2xl bg-white text-gray-800 ring-1 ring-black/10 py-2 z-50">
                             <a href="{{ route('bac') }}" class="block px-4 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">Bids & Awards Committee</a>
                             <a href="{{ route('citizens-charter') }}" class="block px-4 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">Citizen's Charter</a>
                             <a href="{{ route('seal') }}" class="block px-4 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">Transparency Seal</a>
@@ -97,7 +102,7 @@
                              x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                              x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
                              x-cloak
-                             class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-56 rounded-lg shadow-xl bg-white text-gray-800 ring-1 ring-black ring-opacity-5 py-2 z-50">
+                             class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-56 rounded-lg shadow-2xl bg-white text-gray-800 ring-1 ring-black/10 py-2 z-50">
                             <a href="{{ route('profile') }}" class="block px-4 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">Profile</a>
                             <a href="{{ route('socio-economic') }}" class="block px-4 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">Socio-economic Profile</a>
                             <a href="{{ route('province-history') }}" class="block px-4 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">Province History</a>
@@ -107,16 +112,19 @@
                         </div>
                     </div>
 
-                    {{-- 4. Services Dropdown (Tourism, Scholarship, Search Icon, FAQ) --}}
-                    <div class="relative py-1" @click.away="servicesOpen = false">
-                        <button @click="servicesOpen = !servicesOpen; transparencyOpen = false; aboutOpen = false"
-                                class="flex items-center gap-1 text-xs font-semibold text-slate-200 hover:text-amber-300 transition focus:outline-none {{ request()->routeIs('tourism') || request()->routeIs('services.*') || request()->routeIs('search') || request()->routeIs('faq') ? 'text-amber-300' : '' }}">
+                    {{-- 4. Services Dropdown with Flyout Submenus to the Right (Click-based) --}}
+                    <div class="relative py-1"
+                         x-data="{ activeSub: null }"
+                         @click.away="servicesOpen = false; activeSub = null">
+                        <button @click="servicesOpen = !servicesOpen; activeSub = null; transparencyOpen = false; aboutOpen = false"
+                                class="flex items-center gap-1 text-xs font-semibold text-slate-200 hover:text-amber-300 transition focus:outline-none {{ request()->routeIs('tourism') || request()->routeIs('services.*') || request()->routeIs('faq') || request()->routeIs('guest.news.*') || request()->routeIs('careers.*') ? 'text-amber-300' : '' }}">
                             <span>Services</span>
                             <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="servicesOpen ? 'rotate-180 text-amber-300' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
 
+                        {{-- Main Services Dropdown Panel --}}
                         <div x-show="servicesOpen"
                              x-transition:enter="transition ease-out duration-150"
                              x-transition:enter-start="opacity-0 scale-95 -translate-y-1"
@@ -125,64 +133,174 @@
                              x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                              x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
                              x-cloak
-                             class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-64 rounded-lg shadow-xl bg-white text-gray-800 ring-1 ring-black ring-opacity-5 py-2 z-50">
-                            
-                            {{-- Scholarship --}}
-                            <a href="{{ route('services.educational-assistance') }}" class="flex items-center justify-between px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">
-                                <span class="flex items-center gap-2">
-                                    <span class="text-base">🎓</span>
-                                    <span>Educational Assistance</span>
-                                </span>
-                                <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded">Scholarship</span>
+                             class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-64 rounded-xl shadow-2xl bg-white text-gray-800 ring-1 ring-black/10 py-2 z-50">
+
+                            {{-- Header Label --}}
+                            <div class="px-3.5 pb-1.5 pt-0.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-gray-100">
+                                Provincial Services
+                            </div>
+
+                            {{-- 1. Educational Assistance (Direct Link - NO submenu) --}}
+                            <a href="{{ route('services.educational-assistance') }}"
+                               @click="servicesOpen = false; activeSub = null"
+                               class="block px-3.5 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">
+                                Educational Assistance
                             </a>
 
-                            {{-- Tourism --}}
-                            <a href="{{ route('tourism') }}" class="flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">
-                                <span class="text-base">🏝️</span>
-                                <span>Tourism & Eco-Adventure</span>
+                            {{-- 2. Visit CamSur (Direct Link - NO submenu) --}}
+                            <a href="{{ route('tourism') }}"
+                               @click="servicesOpen = false; activeSub = null"
+                               class="block px-3.5 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">
+                                Visit CamSur
                             </a>
 
-                            {{-- Search Button with Magnifying Glass --}}
-                            <button type="button"
-                                    @click="servicesOpen = false; $dispatch('open-search-modal')"
-                                    class="w-full text-left flex items-center justify-between px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition border-t border-gray-100">
-                                <span class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-blue-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            {{-- 3. News & Media (Click to open flyout to the RIGHT of the main dropdown) --}}
+                            <div class="relative">
+                                <button type="button"
+                                        @click.stop="activeSub = (activeSub === 'news' ? null : 'news')"
+                                        :class="activeSub === 'news' ? 'bg-blue-50 text-blue-900 font-semibold' : 'text-gray-700'"
+                                        class="w-full flex items-center justify-between px-3.5 py-2 text-xs font-medium hover:bg-blue-50 hover:text-blue-900 transition">
+                                    <span>News & Media</span>
+                                    <svg class="w-3.5 h-3.5 text-gray-400 transition-transform duration-200"
+                                         :class="activeSub === 'news' ? 'rotate-90 text-blue-900' : ''"
+                                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
-                                    <span>Search Portal</span>
-                                </span>
-                                <span class="text-[10px] font-mono font-bold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">Ctrl+K</span>
-                            </button>
+                                </button>
+                            </div>
 
-                            {{-- Help Center / FAQ --}}
-                            <a href="{{ route('faq') }}" class="flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition border-t border-gray-100">
-                                <span class="text-base">❓</span>
-                                <span>Help Center & FAQs</span>
+                            {{-- 4. Job Portals (Click to open flyout to the RIGHT of the main dropdown) --}}
+                            <div class="relative">
+                                <button type="button"
+                                        @click.stop="activeSub = (activeSub === 'jobs' ? null : 'jobs')"
+                                        :class="activeSub === 'jobs' ? 'bg-blue-50 text-blue-900 font-semibold' : 'text-gray-700'"
+                                        class="w-full flex items-center justify-between px-3.5 py-2 text-xs font-medium hover:bg-blue-50 hover:text-blue-900 transition">
+                                    <span>Job Portals</span>
+                                    <svg class="w-3.5 h-3.5 text-gray-400 transition-transform duration-200"
+                                         :class="activeSub === 'jobs' ? 'rotate-90 text-blue-900' : ''"
+                                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            {{-- Divider --}}
+                            <div class="my-1 border-t border-gray-100"></div>
+
+                            {{-- 5. Help Center / FAQ (Direct Link - NO submenu) --}}
+                            <a href="{{ route('faq') }}"
+                               @click="servicesOpen = false; activeSub = null"
+                               class="block px-3.5 py-2 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition">
+                                Help Center & FAQs
                             </a>
+
+                            {{-- ➡️ FLYOUT SUBMENU: NEWS & RELEASES --}}
+                            <div x-show="activeSub === 'news'"
+                                 x-transition:enter="transition ease-out duration-150"
+                                 x-transition:enter-start="opacity-0 translate-x-2"
+                                 x-transition:enter-end="opacity-100 translate-x-0"
+                                 x-transition:leave="transition ease-in duration-100"
+                                 x-transition:leave-start="opacity-100 translate-x-0"
+                                 x-transition:leave-end="opacity-0 translate-x-2"
+                                 x-cloak
+                                 style="left: calc(100% + 12px); top: 0;"
+                                 class="absolute w-60 rounded-xl shadow-2xl bg-white text-gray-800 ring-1 ring-black/10 py-2 z-50">
+                                <div class="px-3.5 pb-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-gray-100 flex items-center justify-between">
+                                    <span>News & Releases</span>
+                                    <span class="text-blue-600 text-[10px] font-semibold">Press Room</span>
+                                </div>
+                                <div class="p-1 space-y-0.5">
+                                    <a href="{{ route('guest.news.index') }}"
+                                       @click="servicesOpen = false; activeSub = null"
+                                       class="block px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg transition">
+                                        <div class="font-medium">News & Press Releases</div>
+                                        <div class="text-[10px] text-gray-400 leading-none mt-0.5">Official articles & statements</div>
+                                    </a>
+                                    <a href="{{ route('guest.videos.index') }}"
+                                       @click="servicesOpen = false; activeSub = null"
+                                       class="block px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg transition">
+                                        <div class="font-medium">Videos & Video Reels</div>
+                                        <div class="text-[10px] text-gray-400 leading-none mt-0.5">Full broadcasts & mobile shorts</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            {{-- ➡️ FLYOUT SUBMENU: EMPLOYMENT & PLACEMENT --}}
+                            <div x-show="activeSub === 'jobs'"
+                                 x-transition:enter="transition ease-out duration-150"
+                                 x-transition:enter-start="opacity-0 translate-x-2"
+                                 x-transition:enter-end="opacity-100 translate-x-0"
+                                 x-transition:leave="transition ease-in duration-100"
+                                 x-transition:leave-start="opacity-100 translate-x-0"
+                                 x-transition:leave-end="opacity-0 translate-x-2"
+                                 x-cloak
+                                 style="left: calc(100% + 12px); top: 0;"
+                                 class="absolute w-60 rounded-xl shadow-2xl bg-white text-gray-800 ring-1 ring-black/10 py-2 z-50">
+                                <div class="px-3.5 pb-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-gray-100 flex items-center justify-between">
+                                    <span>Employment & Placement</span>
+                                    <span class="text-blue-600 text-[10px] font-semibold">Directory</span>
+                                </div>
+                                <div class="p-1 space-y-0.5">
+                                    <a href="{{ route('careers.government') }}"
+                                       @click="servicesOpen = false; activeSub = null"
+                                       class="block px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg transition">
+                                        <div class="font-medium">Careers With Us</div>
+                                        <div class="text-[10px] text-gray-400 leading-none mt-0.5">Civil service & permanent plantilla</div>
+                                    </a>
+                                    <a href="{{ route('careers.local') }}"
+                                       @click="servicesOpen = false; activeSub = null"
+                                       class="block px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg transition">
+                                        <div class="font-medium">Private Local Jobs</div>
+                                        <div class="text-[10px] text-gray-400 leading-none mt-0.5">Accredited private firms & BPO hubs</div>
+                                    </a>
+                                    <a href="{{ route('careers.overseas') }}"
+                                       @click="servicesOpen = false; activeSub = null"
+                                       class="block px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg transition">
+                                        <div class="font-medium">Overseas / OFW Careers</div>
+                                        <div class="text-[10px] text-gray-400 leading-none mt-0.5">DMW / POEA verified agencies</div>
+                                    </a>
+                                    <a href="{{ route('careers.spes') }}"
+                                       @click="servicesOpen = false; activeSub = null"
+                                       class="block px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-900 rounded-lg transition">
+                                        <div class="font-medium">Student Jobs & SPES</div>
+                                        <div class="text-[10px] text-gray-400 leading-none mt-0.5">Subsidized summer work & internships</div>
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
+                    {{-- 5. Dedicated Search Portal Button in the Top Navigation Row --}}
+                    <button type="button"
+                            @click="$dispatch('open-search-modal'); servicesOpen = false; transparencyOpen = false; aboutOpen = false"
+                            class="flex items-center gap-1.5 text-xs font-semibold text-slate-200 hover:text-amber-300 transition py-1 focus:outline-none"
+                            title="Search Portal (Ctrl+K)">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <span>Search</span>
+                    </button>
 
                 </div>
             @endif
 
-            {{-- Right Side: PH Flag GIF + Stacked Philippine Standard Time Clock --}}
-            <div class="flex items-center gap-2.5 text-white font-mono text-[11px] z-10">
-                <img src="{{ asset('img/shared/flag.gif') }}" alt="PH Flag" class="w-5 h-3.5 object-cover rounded shadow-sm" onerror="this.style.display='none'">
-
-                <div class="flex flex-col text-left leading-tight">
-                    <span class="text-slate-300 uppercase font-semibold text-[9px] tracking-wider">philippine standard time</span>
-                    <span class="text-white font-bold text-[11px]" x-text="timeString">Loading time...</span>
+            {{-- Right Side: Philippine Standard Time (PST) Clock --}}
+            <div class="flex items-center gap-2.5 z-10" title="Philippine Standard Time">
+                <div class="flex items-center text-[11px] sm:text-xs text-slate-200 tracking-normal font-medium whitespace-nowrap">
+                    <span x-text="dateOnly"></span>
+                    <span class="text-slate-400 font-normal px-1.5 inline-block">at</span>
+                    <span x-text="timeOnly" class="font-semibold text-white"></span>
                 </div>
             </div>
 
         </div>
     </div>
 
-    {{-- ⚓ 2nd Layer: Main Navbar (Background: #114696) - Pure Blank Right Side --}}
+    {{-- ⚓ 2nd Layer: Main Navbar (Background: #114696) --}}
     <nav style="background-color: #114696;"
          :class="scrolled ? 'shadow-lg border-b border-blue-900/80' : 'border-b border-blue-900/50 shadow-md'"
-         class="transition-all duration-300 text-white">
+         class="relative z-20 transition-all duration-300 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div :class="scrolled ? 'h-12' : 'h-16'" class="flex justify-between items-center transition-all duration-300">
 
@@ -218,8 +336,21 @@
                     </a>
                 </div>
 
-                {{-- Completely Empty Right Area on Main Blue Bar --}}
-                <div class="hidden md:block"></div>
+                {{-- 🇵🇭 Official Philippine Flag Badge with Dignified National Designation --}}
+                <div class="hidden md:flex items-center">
+                    <div class="flex items-center gap-2.5 select-none" title="Sagisag ng Republika ng Pilipinas">
+                        <div class="w-8 h-5 rounded-sm overflow-hidden shadow-sm flex items-center justify-center shrink-0">
+                            <img src="{{ asset('img/shared/flag.gif') }}" 
+                                 alt="Flag of the Philippines" 
+                                 class="w-full h-full object-cover" 
+                                 onerror="this.style.display='none'">
+                        </div>
+                        <div class="flex flex-col text-left leading-tight">
+                            <span class="text-[9px] font-semibold text-amber-300 tracking-wider uppercase">Sagisag ng Republika</span>
+                            <span class="text-[11px] font-extrabold tracking-widest text-white uppercase">ng Pilipinas</span>
+                        </div>
+                    </div>
+                </div>
 
                 {{-- Mobile Hamburger Button --}}
                 <div class="-mr-2 flex items-center md:hidden">
@@ -272,28 +403,66 @@
                     </div>
                 </div>
 
+                {{-- Mobile Search Button (Dedicated Primary Item) --}}
+                <button type="button" @click="open = false; $dispatch('open-search-modal')" class="w-full flex items-center gap-2 pl-4 pr-4 py-2 text-base font-medium text-blue-100 hover:bg-white/5 text-left">
+                    <svg class="w-5 h-5 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <span>Search Portal</span>
+                    <span class="ml-auto text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-blue-200">Ctrl+K</span>
+                </button>
+
                 {{-- Mobile Services Accordion --}}
-                <div x-data="{ subOpen: false }">
+                <div x-data="{ subOpen: false, newsSub: false, jobsSub: false }">
                     <button @click="subOpen = !subOpen" class="w-full flex justify-between items-center pl-4 pr-4 py-2 text-base font-medium text-blue-100 hover:bg-white/5">
                         <span>Services</span>
                         <svg class="w-4 h-4 transform transition" :class="subOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div x-show="subOpen" class="pl-8 pr-4 py-1 space-y-1 bg-black/20" x-cloak>
-                        <a href="{{ route('services.educational-assistance') }}" class="block py-1 text-sm text-amber-300 hover:text-white font-semibold">
-                            🎓 Educational Assistance (Scholarship)
+                    <div x-show="subOpen" class="pl-6 pr-4 py-1 space-y-1 bg-black/20" x-cloak>
+                        {{-- 1. Educational Assistance (Direct) --}}
+                        <a href="{{ route('services.educational-assistance') }}" class="block py-1.5 text-sm text-amber-300 hover:text-white font-medium">
+                            Educational Assistance (Scholarship)
                         </a>
-                        <a href="{{ route('tourism') }}" class="block py-1 text-sm text-blue-200 hover:text-white">
-                            🏝️ Tourism & Eco-Adventure
+
+                        {{-- 2. Visit CamSur (Direct) --}}
+                        <a href="{{ route('tourism') }}" class="block py-1.5 text-sm text-blue-200 hover:text-white">
+                            Visit CamSur (Tourism)
                         </a>
-                        <button type="button" @click="open = false; $dispatch('open-search-modal')" class="w-full flex items-center gap-2 py-1 text-sm text-blue-200 hover:text-white text-left">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                            <span>Search Portal (Ctrl + K)</span>
-                        </button>
-                        <a href="{{ route('faq') }}" class="block py-1 text-sm text-blue-200 hover:text-white">
+
+                        {{-- 3. News & Media (Accordion Submenu) --}}
+                        <div>
+                            <button @click="newsSub = !newsSub" class="w-full flex justify-between items-center py-1.5 text-sm text-blue-200 hover:text-white">
+                                <span>News & Media</span>
+                                <svg class="w-3.5 h-3.5 transform transition" :class="newsSub ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div x-show="newsSub" class="pl-4 py-1 space-y-1 text-xs border-l border-white/10 ml-2" x-cloak>
+                                <a href="{{ route('guest.news.index') }}" class="block py-1 text-blue-100 hover:text-white">Latest News</a>
+                                <a href="{{ route('press-releases.index') }}" class="block py-1 text-blue-100 hover:text-white">Press Releases</a>
+                            </div>
+                        </div>
+
+                        {{-- 4. Job Portals (Accordion Submenu) --}}
+                        <div>
+                            <button @click="jobsSub = !jobsSub" class="w-full flex justify-between items-center py-1.5 text-sm text-blue-200 hover:text-white">
+                                <span>Job Portals</span>
+                                <svg class="w-3.5 h-3.5 transform transition" :class="jobsSub ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div x-show="jobsSub" class="pl-4 py-1 space-y-1 text-xs border-l border-white/10 ml-2" x-cloak>
+                                <a href="{{ route('careers.government') }}" class="block py-1 text-blue-100 hover:text-white">Careers With Us (Plantilla)</a>
+                                <a href="{{ route('careers.local') }}" class="block py-1 text-blue-100 hover:text-white">Private Local Jobs</a>
+                                <a href="{{ route('careers.overseas') }}" class="block py-1 text-blue-100 hover:text-white">Overseas / OFW Careers</a>
+                                <a href="{{ route('careers.spes') }}" class="block py-1 text-blue-100 hover:text-white">Student Jobs & SPES</a>
+                            </div>
+                        </div>
+
+                        {{-- 5. Help Center & FAQs (Direct) --}}
+                        <a href="{{ route('faq') }}" class="block py-1.5 text-sm text-blue-200 hover:text-white">
                             ❓ Help Center & FAQs
                         </a>
                     </div>

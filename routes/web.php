@@ -4,23 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\ProvincialProfileController;
 use App\Http\Controllers\Guest\SocioEconomicController;
+use App\Http\Controllers\Guest\NewsVideoController;
+use App\Http\Controllers\Guest\SearchController;
 use App\Http\Controllers\Admin\HistoryContentController;
 
 Route::get('/', function () {
     return view('pages.guest.home');
 })->name('home');
 
-Route::get('/news', function () {
-    return view('pages.guest.home');
-})->name('guest.news.index');
+Route::get('/news', [NewsVideoController::class, 'index'])->name('guest.news.index');
+Route::get('/news/{slug}', [NewsVideoController::class, 'show'])->name('guest.news.show');
+Route::get('/press-releases', [NewsVideoController::class, 'index'])->name('press-releases.index');
+Route::get('/videos', [NewsVideoController::class, 'videos'])->name('guest.videos.index');
 
-Route::get('/services', function () {
-    return view('pages.guest.home');
-})->name('guest.services.index');
-
-Route::get('/search', function () {
-    return view('pages.guest.search');
-})->name('search');
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+Route::get('/sitemap', [SearchController::class, 'sitemap'])->name('sitemap');
 
 Route::get('/faq', function () {
     return view('pages.guest.services.faq');
@@ -79,10 +77,6 @@ Route::get('/past-governors', function () {
     return view('pages.guest.about.past-governors');
 })->name('past-governors');
 
-Route::get('/press-releases', function () {
-    return view('pages.guest.press-releases');
-})->name('press-releases.index');
-
 Route::prefix('careers')->name('careers.')->group(function () {
     // Government Careers & Inquiry
     Route::get('/government', [JobPostingController::class, 'careersWithUs'])->name('government');
@@ -95,9 +89,14 @@ Route::prefix('careers')->name('careers.')->group(function () {
 
     // Overseas
     Route::get('/overseas', [JobPostingController::class, 'overseasJobs'])->name('overseas');
+    Route::post('/overseas/send-inquiry', [JobPostingController::class, 'sendFaqInquiry'])->name('overseas.send-inquiry');
 
     // SPES & Student Internships
     Route::get('/spes-internships', [JobPostingController::class, 'spesInternships'])->name('spes');
+    Route::post('/spes-internships/send-inquiry', [JobPostingController::class, 'sendFaqInquiry'])->name('spes.send-inquiry');
+
+    // Individual Job Details Page
+    Route::get('/job/{id}', [JobPostingController::class, 'show'])->name('show');
 });
 
 // Citizen Public Inquiry & Feedback Submissions with Rate Limiting (5 requests per minute)

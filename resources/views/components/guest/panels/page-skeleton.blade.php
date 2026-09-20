@@ -187,27 +187,18 @@
             }
         };
 
-        // Guarantee maximum display time of 600ms so user is never stuck
-        const maxTimer = setTimeout(dismissGlobalSkeleton, 600);
+        // Guarantee maximum display time of 250ms so user is never stuck
+        const maxTimer = setTimeout(dismissGlobalSkeleton, 250);
 
-        // Check when page is ready or images loaded
+        // Check when page is ready
         const onReady = () => {
-            if (document.fonts && document.fonts.ready) {
-                document.fonts.ready.then(() => {
-                    setTimeout(dismissGlobalSkeleton, 150);
-                }).catch(() => {
-                    dismissGlobalSkeleton();
-                });
-            } else {
-                setTimeout(dismissGlobalSkeleton, 200);
-            }
+            setTimeout(dismissGlobalSkeleton, 50);
         };
 
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            onReady();
+            dismissGlobalSkeleton();
         } else {
             window.addEventListener('DOMContentLoaded', onReady, { once: true });
-            window.addEventListener('load', dismissGlobalSkeleton, { once: true });
         }
     })();
 </script>

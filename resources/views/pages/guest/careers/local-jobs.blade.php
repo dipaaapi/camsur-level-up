@@ -11,7 +11,7 @@
             active="local"
             badge="Provincial Job Placement & PESO"
             title="Local Employment Opportunities"
-            description="Mga fultime at part-time na trabaho sa mga pampubliko at pribadong kumpanya sa buong lalawigan ng Camarines Sur." 
+            description="Full-time and part-time jobs across public and private companies throughout the Province of Camarines Sur." 
         />
 
         {{-- Quick Stats / Employment Overview --}}
@@ -117,9 +117,9 @@
                                     @endif
                                 </div>
 
-                                <button @click="openFaq = true" class="w-full text-center text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 py-2.5 rounded-xl transition-colors">
-                                    View Requirements & How to Apply
-                                </button>
+                                <a href="{{ route('careers.show', $job->id) }}" class="block w-full text-center text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 hover:text-blue-900 py-2.5 rounded-xl transition-colors">
+                                    View Requirements & How to Apply &rarr;
+                                </a>
                             </div>
                         </div>
                     @endforeach
@@ -145,12 +145,12 @@
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b pb-4">
                     <div>
                         <h3 class="text-lg font-bold text-slate-900">Local Employment Trend Analysis</h3>
-                        <p class="text-xs text-slate-500">Bilang ng mga inilabas na trabaho kada buwan ayon sa kategorya</p>
+                        <p class="text-xs text-slate-500">Number of job postings released per month by category</p>
                     </div>
 
                     {{-- Dynamic Year Selector --}}
                     <div class="flex items-center gap-2">
-                        <label class="text-xs font-semibold text-slate-600">Pumili ng Taon:</label>
+                        <label class="text-xs font-semibold text-slate-600">Select Year:</label>
                         <select id="trendYearSelect" @change="updateTrendGraph($event.target.value)" class="text-xs font-bold rounded-xl border-slate-300 focus:ring-blue-500 focus:border-blue-500">
                             @foreach($availableYears as $year)
                                 <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>{{ $year }}</option>
@@ -168,9 +168,9 @@
             {{-- Wisdom / Career Advice Card --}}
             <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-sm space-y-3">
                 <span class="text-xs font-bold uppercase tracking-wider text-blue-400">PESO Camarines Sur Tip</span>
-                <h3 class="text-lg font-bold">Maghanda para sa Local Job Interview</h3>
+                <h3 class="text-lg font-bold">Prepare for Your Local Job Interview</h3>
                 <p class="text-slate-300 text-xs leading-relaxed">
-                    Siguraduhing updated ang iyong Resume/CV, ihanda ang iyong 2x2 ID picture, NBI/Police Clearance, at tiyaking dumating nang maaga sa nakatakdang interview o Job Fair site ng PESO CamSur.
+                    Ensure your Resume/CV is updated, prepare your 2x2 ID photos, government clearance documents, and arrive early at the scheduled interview or PESO CamSur Job Fair site.
                 </p>
             </div>
         </div>

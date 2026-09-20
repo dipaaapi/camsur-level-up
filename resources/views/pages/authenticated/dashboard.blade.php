@@ -275,6 +275,356 @@
                 @endforeach
             </div>
 
+            {{-- 4.5 MULTI-CHANNEL CONTENT INGESTION & PUBLISHING STUDIO --}}
+            <div x-data="{
+                ingestMode: 'manual', // 'manual', 'embed', 'api', 'document'
+                postType: 'job', // 'news', 'pr', 'job'
+                docFileType: '',
+                docFileName: '',
+                isParsing: false,
+                parseSuccess: false,
+                extractedImages: [
+                    '{{ asset('img/shared/camsur_logo_hd.png') }}',
+                    '{{ asset('img/shared/camsur_logo.png') }}'
+                ],
+                extractedRows: [
+                    { title: 'Information Officer I (Permanent)', department: 'Provincial Information Office', slots: 2, deadline: '2026-10-15', status: 'Ready' },
+                    { title: 'Administrative Assistant II', department: 'ICARMO', slots: 1, deadline: '2026-10-20', status: 'Ready' },
+                    { title: 'Community Development Facilitator', department: 'Provincial Social Welfare', slots: 4, deadline: '2026-10-30', status: 'Ready' }
+                ],
+                socialUrl: '',
+                socialPlatform: 'facebook',
+                apiSyncSource: 'philjobnet',
+                isSyncing: false,
+                syncStatusMsg: '',
+                
+                handleFileSelect(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    this.docFileName = file.name;
+                    this.docFileType = file.name.split('.').pop().toLowerCase();
+                    this.isParsing = true;
+                    this.parseSuccess = false;
+                    setTimeout(() => {
+                        this.isParsing = false;
+                        this.parseSuccess = true;
+                    }, 1200);
+                },
+
+                triggerApiSync() {
+                    this.isSyncing = true;
+                    this.syncStatusMsg = 'Connecting to ' + this.apiSyncSource.toUpperCase() + ' gateway...';
+                    setTimeout(() => {
+                        this.syncStatusMsg = 'Fetching accredited vacancies for Camarines Sur...';
+                    }, 800);
+                    setTimeout(() => {
+                        this.isSyncing = false;
+                        this.syncStatusMsg = 'Live sync completed! 12 new listings verified and synced.';
+                    }, 1800);
+                }
+            }" class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black rounded-full uppercase tracking-wider mb-2">
+                            <span>🚀</span> Multi-Channel Ingestion & Publishing Studio
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Content Pipeline & Universal Ingestion</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">I-publish o i-sync ang content sa pamamagitan ng 4 iba't ibang paraan nang walang kahirap-hirap.</p>
+                    </div>
+
+                    {{-- Mode Selector Tabs --}}
+                    <div class="flex items-center bg-slate-100 p-1.5 rounded-2xl border border-slate-200/80 overflow-x-auto">
+                        <button @click="ingestMode = 'manual'" :class="ingestMode === 'manual' ? 'bg-white text-blue-900 shadow-sm font-black' : 'text-slate-600 font-semibold hover:text-slate-900'" class="px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 whitespace-nowrap transition">
+                            <i class="fa-solid fa-pen-nib text-blue-600"></i>
+                            <span>1. Manual Entry</span>
+                        </button>
+                        <button @click="ingestMode = 'embed'" :class="ingestMode === 'embed' ? 'bg-white text-blue-900 shadow-sm font-black' : 'text-slate-600 font-semibold hover:text-slate-900'" class="px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 whitespace-nowrap transition">
+                            <i class="fa-solid fa-share-nodes text-indigo-600"></i>
+                            <span>2. Social Embed</span>
+                        </button>
+                        <button @click="ingestMode = 'api'" :class="ingestMode === 'api' ? 'bg-white text-blue-900 shadow-sm font-black' : 'text-slate-600 font-semibold hover:text-slate-900'" class="px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 whitespace-nowrap transition">
+                            <i class="fa-solid fa-bolt text-amber-600"></i>
+                            <span>3. API Live Sync</span>
+                        </button>
+                        <button @click="ingestMode = 'document'" :class="ingestMode === 'document' ? 'bg-white text-blue-900 shadow-sm font-black' : 'text-slate-600 font-semibold hover:text-slate-900'" class="px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 whitespace-nowrap transition">
+                            <i class="fa-solid fa-file-arrow-up text-emerald-600"></i>
+                            <span>4. Bulk Document</span>
+                        </button>
+                    </div>
+                </div>
+
+                {{-- Target Type Selector --}}
+                <div class="flex items-center gap-3 text-xs font-bold text-slate-600">
+                    <span class="text-slate-400 uppercase tracking-wider text-[10px]">Target Destination:</span>
+                    <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                        <input type="radio" name="post_target" value="job" x-model="postType" class="text-blue-600 focus:ring-blue-500">
+                        <span>Career / Job Opening</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                        <input type="radio" name="post_target" value="news" x-model="postType" class="text-blue-600 focus:ring-blue-500">
+                        <span>News Article</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                        <input type="radio" name="post_target" value="pr" x-model="postType" class="text-blue-600 focus:ring-blue-500">
+                        <span>Press Release</span>
+                    </label>
+                </div>
+
+                {{-- ================= TAB 1: MANUAL ENTRY ================= --}}
+                <div x-show="ingestMode === 'manual'" class="space-y-4 pt-2">
+                    <div class="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3">
+                        <span class="text-xl">✍️</span>
+                        <div class="text-xs text-blue-900">
+                            <strong>Manual Content Authoring:</strong> Tamang-tama para sa orihinal na anunsyo, trabaho, o balita na may buong kontrol sa pamagat, detalye, imahe, at mga tag.
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="space-y-1">
+                            <label class="font-bold text-slate-700">TITLE / POSITION NAME <span class="text-rose-500">*</span></label>
+                            <input type="text" placeholder="Hal: Administrative Officer II / Kapitolyo Caravan" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white transition">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="font-bold text-slate-700">DEPARTMENT / ISSUING BODY <span class="text-rose-500">*</span></label>
+                            <input type="text" placeholder="Hal: Provincial Human Resource Management Office (PHRMO)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                        <div class="space-y-1">
+                            <label class="font-bold text-slate-700">CATEGORY / STREAM</label>
+                            <select class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white transition">
+                                <option>Provincial Government (PGI)</option>
+                                <option>PESO Camarines Sur</option>
+                                <option>Private Sector & Tourism</option>
+                                <option>Special Recruitment (SRA / Caravan)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="font-bold text-slate-700">LOCATION / VENUE</label>
+                            <input type="text" placeholder="Hal: Provincial Capitol Complex, Cadlan, Pili" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white transition">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="font-bold text-slate-700">VALID UNTIL / DEADLINE</label>
+                            <input type="date" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white transition">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1 text-xs">
+                        <label class="font-bold text-slate-700">FULL DETAILS / QUALIFICATIONS / EXCERPT</label>
+                        <textarea rows="3" placeholder="Ipasok ang kabuuang detalye, requirements, o panuntunan..." class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white transition"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-[11px] text-slate-400">Direktang mai-index sa Search Engine at Sitemap kapag na-save.</span>
+                        <button type="button" class="px-5 py-2.5 bg-blue-900 hover:bg-blue-800 text-white font-black rounded-xl text-xs shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <span>Save & Publish Live</span>
+                        </button>
+                    </div>
+                </div>
+
+                {{-- ================= TAB 2: SOCIAL EMBED ================= --}}
+                <div x-show="ingestMode === 'embed'" class="space-y-4 pt-2">
+                    <div class="p-4 bg-indigo-50/50 rounded-2xl border border-indigo-100 flex items-start gap-3">
+                        <span class="text-xl">🌐</span>
+                        <div class="text-xs text-indigo-900">
+                            <strong>Direct Social Feed & Reel Embed:</strong> I-paste ang URL ng official post, reel, o video mula sa Facebook, Instagram, YouTube, o X upang ma-embed agad sa Social Hub o Job Openings nang hindi na manu-manong nagta-type.
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                        <button @click="socialPlatform = 'facebook'" :class="socialPlatform === 'facebook' ? 'border-blue-600 bg-blue-50/60 text-blue-900 font-black' : 'border-slate-200 text-slate-600 hover:border-slate-300'" class="p-3 border-2 rounded-2xl flex items-center justify-center gap-2 text-xs transition">
+                            <i class="fa-brands fa-facebook text-blue-600 text-base"></i>
+                            <span>Facebook</span>
+                        </button>
+                        <button @click="socialPlatform = 'instagram'" :class="socialPlatform === 'instagram' ? 'border-pink-600 bg-pink-50/60 text-pink-900 font-black' : 'border-slate-200 text-slate-600 hover:border-slate-300'" class="p-3 border-2 rounded-2xl flex items-center justify-center gap-2 text-xs transition">
+                            <i class="fa-brands fa-instagram text-pink-600 text-base"></i>
+                            <span>Instagram</span>
+                        </button>
+                        <button @click="socialPlatform = 'youtube'" :class="socialPlatform === 'youtube' ? 'border-red-600 bg-red-50/60 text-red-900 font-black' : 'border-slate-200 text-slate-600 hover:border-slate-300'" class="p-3 border-2 rounded-2xl flex items-center justify-center gap-2 text-xs transition">
+                            <i class="fa-brands fa-youtube text-red-600 text-base"></i>
+                            <span>YouTube</span>
+                        </button>
+                        <button @click="socialPlatform = 'x'" :class="socialPlatform === 'x' ? 'border-slate-900 bg-slate-100 text-slate-900 font-black' : 'border-slate-200 text-slate-600 hover:border-slate-300'" class="p-3 border-2 rounded-2xl flex items-center justify-center gap-2 text-xs transition">
+                            <i class="fa-brands fa-x-twitter text-slate-900 text-base"></i>
+                            <span>X (Twitter)</span>
+                        </button>
+                    </div>
+
+                    <div class="space-y-1 text-xs">
+                        <label class="font-bold text-slate-700">PASTE SOCIAL POST / REEL / VIDEO PERMALINK</label>
+                        <div class="flex gap-2">
+                            <input type="url" x-model="socialUrl" placeholder="https://www.facebook.com/CamarinesSur/posts/... o https://youtu.be/..." class="flex-grow p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white transition text-xs">
+                            <button type="button" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition whitespace-nowrap">
+                                🔍 Fetch Preview
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Embed Simulation Preview --}}
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs space-y-2">
+                        <div class="flex items-center justify-between text-slate-500 text-[11px]">
+                            <span class="font-bold uppercase tracking-wider">Embed Card Target Preview</span>
+                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full font-bold">Parser Ready</span>
+                        </div>
+                        <p class="text-slate-600 text-[11px]">Awtomatikong kukunin ang author metadata, caption text, at video player para ma-render bilang high-resolution responsive widget sa portal.</p>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button type="button" class="px-5 py-2.5 bg-indigo-900 hover:bg-indigo-800 text-white font-black rounded-xl text-xs shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-code"></i>
+                            <span>Save Embed to Hub</span>
+                        </button>
+                    </div>
+                </div>
+
+                {{-- ================= TAB 3: API LIVE SYNC ================= --}}
+                <div x-show="ingestMode === 'api'" class="space-y-4 pt-2">
+                    <div class="p-4 bg-amber-50/50 rounded-2xl border border-amber-100 flex items-start gap-3">
+                        <span class="text-xl">⚡</span>
+                        <div class="text-xs text-amber-900">
+                            <strong>Automated Government API Live Sync:</strong> Direktang kumonekta sa mga accredited national databases tulad ng PhilJobNet, Department of Migrant Workers (DMW), Civil Service Commission (CSC), o TESDA para sa totoong oras na pag-synchronize ng mga bakanteng posisyon sa Camarines Sur.
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                        <button @click="apiSyncSource = 'philjobnet'" :class="apiSyncSource === 'philjobnet' ? 'border-amber-500 bg-amber-50/60 font-black text-amber-950' : 'border-slate-200 text-slate-600'" class="p-3 border-2 rounded-2xl text-left text-xs transition">
+                            <div class="font-bold text-slate-800">PhilJobNet (DOLE)</div>
+                            <div class="text-[10px] text-slate-500">Local & regional jobs</div>
+                        </button>
+                        <button @click="apiSyncSource = 'dmw'" :class="apiSyncSource === 'dmw' ? 'border-amber-500 bg-amber-50/60 font-black text-amber-950' : 'border-slate-200 text-slate-600'" class="p-3 border-2 rounded-2xl text-left text-xs transition">
+                            <div class="font-bold text-slate-800">DMW Overseas Portal</div>
+                            <div class="text-[10px] text-slate-500">Accredited agency jobs</div>
+                        </button>
+                        <button @click="apiSyncSource = 'csc'" :class="apiSyncSource === 'csc' ? 'border-amber-500 bg-amber-50/60 font-black text-amber-950' : 'border-slate-200 text-slate-600'" class="p-3 border-2 rounded-2xl text-left text-xs transition">
+                            <div class="font-bold text-slate-800">CSC Job Portal</div>
+                            <div class="text-[10px] text-slate-500">Plantilla civil service</div>
+                        </button>
+                        <button @click="apiSyncSource = 'tesda'" :class="apiSyncSource === 'tesda' ? 'border-amber-500 bg-amber-50/60 font-black text-amber-950' : 'border-slate-200 text-slate-600'" class="p-3 border-2 rounded-2xl text-left text-xs transition">
+                            <div class="font-bold text-slate-800">TESDA Skills Gateway</div>
+                            <div class="text-[10px] text-slate-500">TVET & certified skills</div>
+                        </button>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-xs text-slate-800">Endpoint Authentication & Rate Limits</h4>
+                                <p class="text-[11px] text-slate-500">Target Region: <span class="font-semibold text-slate-700">Region V (Bicol) & Camarines Sur LGUs</span></p>
+                            </div>
+                            <button @click="triggerApiSync()" :disabled="isSyncing" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-slate-900 font-extrabold rounded-xl text-xs transition shadow flex items-center gap-1.5">
+                                <i class="fa-solid fa-arrows-rotate" :class="isSyncing ? 'animate-spin' : ''"></i>
+                                <span x-text="isSyncing ? 'Syncing...' : 'Start Live Sync Now'"></span>
+                            </button>
+                        </div>
+                        
+                        <div x-show="syncStatusMsg" class="p-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-700 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span x-text="syncStatusMsg" class="font-medium"></span>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- ================= TAB 4: BULK DOCUMENT UPLOAD ================= --}}
+                <div x-show="ingestMode === 'document'" class="space-y-4 pt-2">
+                    <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100 flex items-start gap-3">
+                        <span class="text-xl">📄</span>
+                        <div class="text-xs text-emerald-900">
+                            <strong>Bulk Document, Spreadsheet & Image Extraction:</strong> Para sa ibang departamento na nagpapadala lamang ng Excel (.xlsx/.csv) o Word/PDF (.docx/.pdf). I-upload lamang ang file; kukunin ng system ang listahan at i-e-extract ang mga nakapaloob na larawan para maging editable draft bago i-publish.
+                        </div>
+                    </div>
+
+                    {{-- Drag & Drop Upload Zone --}}
+                    <div class="border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-3xl p-8 text-center bg-slate-50/60 transition group cursor-pointer relative">
+                        <input type="file" @change="handleFileSelect($event)" accept=".xlsx,.xls,.csv,.doc,.docx,.pdf" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                        <div class="space-y-2 pointer-events-none">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 mx-auto flex items-center justify-center text-xl group-hover:scale-110 transition">
+                                <i class="fa-solid fa-file-excel" x-show="!isParsing"></i>
+                                <i class="fa-solid fa-spinner animate-spin" x-show="isParsing"></i>
+                            </div>
+                            <div class="text-xs font-bold text-slate-800">
+                                <span class="text-emerald-700">I-click upang mag-upload</span> o i-drag and drop ang file dito
+                            </div>
+                            <p class="text-[11px] text-slate-400">Tumatanggap ng Microsoft Excel (.xlsx, .xls), CSV, Word (.docx), o PDF (Hanggang 25MB)</p>
+                            <div x-show="docFileName" class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-full mt-2">
+                                <span>📎</span> <span x-text="docFileName"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Extracted Document Content & Image Preview --}}
+                    <div x-show="parseSuccess" class="space-y-4 transition">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-xs text-slate-800 flex items-center gap-2">
+                                <span>📊</span> Na-extract na Talaan (<span x-text="extractedRows.length"></span> items natagpuan)
+                            </h4>
+                            <span class="text-[11px] text-slate-500">Maaari mo itong i-edit bago i-commit sa database.</span>
+                        </div>
+
+                        {{-- Extracted Table --}}
+                        <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
+                                    <tr>
+                                        <th class="p-3">Position / Item Title</th>
+                                        <th class="p-3">Department / Office</th>
+                                        <th class="p-3">Slots</th>
+                                        <th class="p-3">Deadline</th>
+                                        <th class="p-3">Status</th>
+                                        <th class="p-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <template x-for="(row, idx) in extractedRows" :key="idx">
+                                        <tr class="hover:bg-slate-50/50">
+                                            <td class="p-3 font-semibold text-slate-800" x-text="row.title"></td>
+                                            <td class="p-3 text-slate-600" x-text="row.department"></td>
+                                            <td class="p-3 text-slate-600" x-text="row.slots"></td>
+                                            <td class="p-3 text-slate-600" x-text="row.deadline"></td>
+                                            <td class="p-3">
+                                                <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]" x-text="row.status"></span>
+                                            </td>
+                                            <td class="p-3 text-right">
+                                                <button type="button" class="text-blue-600 hover:text-blue-800 font-bold text-xs">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {{-- Extracted Media Pullout Section --}}
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h5 class="font-bold text-xs text-slate-800 flex items-center gap-1.5">
+                                    <span>🖼️</span> Mga Na-extract na Larawan sa Dokumento
+                                </h5>
+                                <span class="text-[10px] text-slate-400">Awtomatikong inihiwalay mula sa Word/PDF/Excel sheet</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <template x-for="(imgSrc, i) in extractedImages" :key="i">
+                                    <div class="relative w-20 h-20 rounded-xl overflow-hidden border border-slate-300 bg-white p-1">
+                                        <img :src="imgSrc" class="w-full h-full object-contain">
+                                        <div class="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[9px] text-center font-semibold">Ready</div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2">
+                            <span class="text-[11px] text-slate-400">Lahat ng talaan ay agad maisasama sa live search registry at sitemap.</span>
+                            <button type="button" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-black rounded-xl text-xs shadow-md transition flex items-center gap-2">
+                                <i class="fa-solid fa-check-double"></i>
+                                <span>Confirm & Commit All Records</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             {{-- 5. ACTIVITY HUB & HEATMAP SECTION --}}
             @php
                 $today = \Carbon\Carbon::today();

@@ -26,7 +26,7 @@
             active="overseas"
             badge="DMW / POEA Accredited Jobs"
             title="Overseas Job Opportunities"
-            description="Ligtas, legal, at lisensyadong mga oportunidad sa ibang bansa para sa mga mamamayan ng Camarines Sur." 
+            description="Safe, legal, and licensed overseas career opportunities for the citizens of Camarines Sur." 
         />
 
         {{-- Quick Stats / Overview --}}
@@ -133,9 +133,9 @@
                                     </td>
                                     <td class="p-4 text-right">
                                         <div class="inline-flex items-center gap-2">
-                                            <button @click="openJobModal({{ json_encode($job) }})" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3 py-1.5 rounded-lg text-xs transition">
+                                            <a href="{{ route('careers.show', $job->id) }}" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3 py-1.5 rounded-lg text-xs transition">
                                                 Full Details
-                                            </button>
+                                            </a>
                                             @if($job->application_link_or_email)
                                                 <a href="{{ Str::startsWith($job->application_link_or_email, 'http') ? $job->application_link_or_email : 'mailto:' . $job->application_link_or_email }}" 
                                                    target="_blank" 
@@ -191,9 +191,9 @@
                             </div>
 
                             <div class="flex items-center gap-2">
-                                <button @click="openJobModal({{ json_encode($job) }})" class="flex-1 text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 py-2.5 rounded-xl transition-colors">
+                                <a href="{{ route('careers.show', $job->id) }}" class="flex-1 text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 py-2.5 rounded-xl transition-colors">
                                     View Details
-                                </button>
+                                </a>
                                 @if($job->application_link_or_email)
                                     <a href="{{ Str::startsWith($job->application_link_or_email, 'http') ? $job->application_link_or_email : 'mailto:' . $job->application_link_or_email }}" 
                                        target="_blank" 
@@ -206,7 +206,7 @@
                     </div>
                 @empty
                     <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-3">
-                        <p class="text-slate-500 text-xs">Walang nahanap na overseas job postings.</p>
+                        <p class="text-slate-500 text-xs">No overseas job postings found.</p>
                     </div>
                 @endforelse
             </div>
@@ -246,19 +246,19 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     DMW Anti-Illegal Recruitment Checklist
                 </div>
-                <h3 class="text-xl font-bold">Gabay sa Ligtas na Pag-apply sa Ibang Bansa</h3>
+                <h3 class="text-xl font-bold">Guidelines for Safe Overseas Employment</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 text-xs text-slate-300">
                     <div class="bg-white/10 p-4 rounded-xl border border-white/10 space-y-1">
                         <strong class="text-white block text-sm">1. Verify Agency License</strong>
-                        <p class="leading-relaxed">Siguraduhing may validong lisensya mula sa Department of Migrant Workers (DMW / POEA) ang recruitment agency.</p>
+                        <p class="leading-relaxed">Ensure the recruitment agency possesses an active and valid license issued by the Department of Migrant Workers (DMW / POEA).</p>
                     </div>
                     <div class="bg-white/10 p-4 rounded-xl border border-white/10 space-y-1">
                         <strong class="text-white block text-sm">2. Check Approved Job Orders</strong>
-                        <p class="leading-relaxed">Huwag mag-abot ng pera o magsumite ng orihinal na dokumento kung walang nakatala at rehistradong Job Order.</p>
+                        <p class="leading-relaxed">Never make payments or surrender original documents without a verified, government-registered Job Order.</p>
                     </div>
                     <div class="bg-white/10 p-4 rounded-xl border border-white/10 space-y-1">
                         <strong class="text-white block text-sm">3. No Placement Fee Policy</strong>
-                        <p class="leading-relaxed">Ang mga Seafarers, Domestic Workers, at mga papuntang USA, UK, Canada, o Japan ay BAWAL singilin ng placement fee.</p>
+                        <p class="leading-relaxed">Seafarers, Domestic Workers, and workers deployed to countries like USA, UK, Canada, or Japan are protected from placement fees.</p>
                     </div>
                 </div>
             </div>

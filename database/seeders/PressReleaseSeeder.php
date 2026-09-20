@@ -27,7 +27,7 @@ class PressReleaseSeeder extends Seeder
             'Provincial Trade & Industry Center'
         ];
 
-        $categories = ['Governance', 'Infrastructure', 'Health & Welfare', 'Tourism', 'Agriculture', 'Education', 'Environment', 'Livelihood', 'Public Safety', 'Commerce'];
+        $categories = ['Governance', 'Infrastructure', 'Health & Welfare', 'Tourism', 'Agriculture', 'Education', 'Environment', 'Livelihood', 'Public Safety', 'Commerce', 'Press Release', 'Official Advisory'];
 
         $sdgOptions = [
             ['SDG 1: No Poverty', 'SDG 2: Zero Hunger'],
@@ -40,14 +40,14 @@ class PressReleaseSeeder extends Seeder
         ];
 
         $images = [
-            'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80',
-            'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80'
+            asset('img/home/stories/capitol.jpg'),
+            asset('img/home/stories/cwc.jpg'),
+            asset('img/services/scholarship/kafuerte-scholarship-banner.png'),
+            asset('img/services/tourism/sector_tourism.jpg'),
+            asset('img/home/stories/cuisine.jpg'),
+            asset('img/home/stories/isarog.jpg'),
+            asset('img/home/stories/kaogma.jpg'),
+            asset('img/home/stories/penafrancia.jpg'),
         ];
 
         // 🌟 1. Single Featured Item
@@ -59,7 +59,7 @@ class PressReleaseSeeder extends Seeder
             'author' => 'Office of the Provincial Governor',
             'category' => 'Governance',
             'sdgs' => ['SDG 9: Industry & Innovation', 'SDG 16: Strong Institutions'],
-            'image' => 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1200&q=80',
+            'image' => asset('img/home/stories/capitol.jpg'),
             'is_featured' => true,
             'published_at' => Carbon::now(),
         ]);
@@ -75,6 +75,8 @@ class PressReleaseSeeder extends Seeder
             $pubDate = Carbon::now()->subHours($i * 9);
 
             $title = match ($cat) {
+                'Press Release' => "Capitol Issues Executive Statement on Provincial Development Agenda #{$i}",
+                'Official Advisory' => "Public Advisory: Provincial Capitol Operations and Public Safety Notice #{$i}",
                 'Governance' => "Capitol Initiates Phase {$i} of Public Governance Efficiency Reform",
                 'Infrastructure' => "Road Network Expansion Project Completed in District #{$i}",
                 'Health & Welfare' => "Mobile Health Mission Serves Rural Barangays Batch #{$i}",

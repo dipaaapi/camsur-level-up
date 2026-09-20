@@ -3,21 +3,32 @@
         query: '',
         selectedIndex: 0,
         items: [
-            { title: 'Educational Assistance Program', category: 'Scholarship', url: '{{ route('services.educational-assistance') }}', icon: 'academic-cap' },
+            { title: 'Educational Assistance (Scholarship)', category: 'Scholarship', url: '{{ route('services.educational-assistance') }}', icon: 'academic-cap' },
             { title: 'Frequently Asked Questions (FAQ)', category: 'Help Desk', url: '{{ route('faq') }}', icon: 'question-mark' },
             { title: 'Citizen\'s Charter', category: 'Transparency', url: '{{ route('citizens-charter') }}', icon: 'document' },
             { title: 'Bids & Awards Committee (BAC)', category: 'Procurement', url: '{{ route('bac') }}', icon: 'badge' },
             { title: 'Transparency Seal', category: 'Governance', url: '{{ route('seal') }}', icon: 'shield' },
-            { title: 'Caramoan Islands & Tourism Guide', category: 'Tourism', url: '{{ route('tourism') }}', icon: 'globe' },
+            { title: 'Visit CamSur - Tourism & Eco-Adventure', category: 'Tourism', url: '{{ route('tourism') }}', icon: 'globe' },
             { title: 'Provincial Socio-Economic Profile', category: 'About', url: '{{ route('socio-economic') }}', icon: 'chart' },
-            { title: 'Government Careers & Vacancies', category: 'Careers', url: '{{ route('careers.government') }}', icon: 'briefcase' },
-            { title: 'Local Jobs in Camarines Sur', category: 'Careers', url: '{{ route('careers.local') }}', icon: 'briefcase' },
+            { title: 'Government Careers & Plantilla', category: 'Careers', url: '{{ route('careers.government') }}', icon: 'briefcase' },
+            { title: 'Private Local Job Directory (PESO)', category: 'Careers', url: '{{ route('careers.local') }}', icon: 'briefcase' },
+            { title: 'Overseas & OFW Opportunities', category: 'Careers', url: '{{ route('careers.overseas') }}', icon: 'briefcase' },
+            { title: 'SPES & Student Internships', category: 'Careers', url: '{{ route('careers.spes') }}', icon: 'briefcase' },
             { title: 'History of Camarines Sur', category: 'About', url: '{{ route('province-history') }}', icon: 'book' },
             { title: 'Mission & Vision', category: 'About', url: '{{ route('mission-vision') }}', icon: 'lightbulb' },
-            { title: 'Press Releases & Capitol News', category: 'News', url: '{{ route('press-releases.index') }}', icon: 'newspaper' }
+            { title: 'Past Governors of Camarines Sur', category: 'About', url: '{{ route('past-governors') }}', icon: 'user-group' },
+            { title: 'Press Releases & Advisories', category: 'News', url: '{{ route('press-releases.index') }}', icon: 'newspaper' },
+            { title: 'Latest Capitol News', category: 'News', url: '{{ route('guest.news.index') }}', icon: 'newspaper' }
         ],
+        restrictedKeywords: ['admin', 'login', 'register', 'dashboard', 'cms', 'auth', 'signin', 'signup', 'password'],
+        get isRestricted() {
+            if (!this.query.trim()) return false;
+            const q = this.query.toLowerCase();
+            return this.restrictedKeywords.some(k => q.includes(k));
+        },
         get filteredItems() {
-            if (!this.query.trim()) return this.items.slice(0, 6);
+            if (this.isRestricted) return [];
+            if (!this.query.trim()) return this.items.slice(0, 7);
             return this.items.filter(item => 
                 item.title.toLowerCase().includes(this.query.toLowerCase()) || 
                 item.category.toLowerCase().includes(this.query.toLowerCase())
